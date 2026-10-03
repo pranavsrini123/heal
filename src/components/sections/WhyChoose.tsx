@@ -3,6 +3,7 @@ import { Leaf, HandHeart, Sparkles, Wind, Users, type LucideProps } from "lucide
 import { whyChoose } from "@/config/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { LotusMotif } from "@/components/decorative/LotusMotif";
 
 const iconMap: Record<(typeof whyChoose)[number]["icon"], React.ComponentType<LucideProps>> = {
   leaf: Leaf,
@@ -14,11 +15,25 @@ const iconMap: Record<(typeof whyChoose)[number]["icon"], React.ComponentType<Lu
 
 export function WhyChoose() {
   return (
-    <section id="why-sanjivini" className="relative bg-cream-100 pb-14 pt-10 sm:pb-24 sm:pt-16" aria-label="Why choose Sanjivini">
+    <section id="why-sanjivini" className="relative bg-cream-100 pb-14 pt-8 sm:pb-24 sm:pt-16" aria-label="Why choose Sanjivini">
       <div data-thread-content className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading eyebrow="Our Approach" title="Why Choose Sanjivini?" />
+        {/* Phones: the Sanjivini lotus and the title share one line. */}
+        <RevealOnScroll className="md:hidden">
+          <div className="flex flex-col items-center gap-2">
+            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-gold-500">Our Approach</span>
+            <div className="flex items-center justify-center gap-2.5">
+              <LotusMotif className="h-7 w-10 shrink-0 text-gold-500" />
+              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-forest-900 min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
+                Why Choose Sanjivini?
+              </h2>
+            </div>
+          </div>
+        </RevealOnScroll>
+        <div className="hidden md:block">
+          <SectionHeading eyebrow="Our Approach" title="Why Choose Sanjivini?" />
+        </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-3 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-5">
+        <div className="mt-7 grid grid-cols-1 gap-3 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-5">
           {whyChoose.map((item, index) => {
             const Icon = iconMap[item.icon];
             return (

@@ -31,7 +31,7 @@ export function Therapies() {
                     <p className="font-sans text-sm text-forest-700/70">{therapyCategories[category].description}</p>
                   </div>
                   {/* Swipe hint — only where the row scrolls. */}
-                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[11px] uppercase tracking-widest2 text-gold-600/80 min-[400px]:flex xl:hidden" aria-hidden="true">
+                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[11px] uppercase tracking-widest2 text-gold-600/80 md:flex xl:hidden" aria-hidden="true">
                     Swipe
                     <svg width="18" height="8" viewBox="0 0 18 8" fill="none">
                       <path d="M0 4h16m0 0L13 1m3 3-3 3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -41,12 +41,12 @@ export function Therapies() {
 
                 {/*
                   Desktop (xl+): all five cards in one row.
-                  Smaller screens: a horizontally swipeable row, with the next card
-                  peeking in so it's clear there is more.
+                  Tablets (md–xl): a horizontally swipeable row.
+                  Phones: a static stack, inset like the Why Choose cards.
                 */}
-                <ul className="-mx-5 -mt-2 flex snap-x snap-mandatory scroll-px-5 gap-3.5 overflow-x-auto overscroll-x-contain px-5 pb-3 pt-2 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] sm:-mx-8 sm:scroll-px-8 sm:gap-4 sm:px-8 xl:mx-0 xl:mt-0 xl:grid xl:grid-cols-5 xl:gap-5 xl:overflow-visible xl:px-0 xl:pb-0 xl:pt-0 [&::-webkit-scrollbar]:hidden">
+                <ul className="flex flex-col gap-3 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:-mx-8 md:-mt-2 md:flex-row md:snap-x md:snap-mandatory md:scroll-px-8 md:gap-4 md:overflow-x-auto md:overscroll-x-contain md:px-8 md:pb-3 md:pt-2 xl:mx-0 xl:mt-0 xl:grid xl:grid-cols-5 xl:gap-5 xl:overflow-visible xl:px-0 xl:pb-0 xl:pt-0 [&::-webkit-scrollbar]:hidden">
                   {items.map((therapy, index) => (
-                    <li key={therapy.id} className="w-[80%] max-w-[300px] shrink-0 snap-start sm:w-[280px] xl:w-auto xl:max-w-none">
+                    <li key={therapy.id} className="w-full md:w-[280px] md:shrink-0 md:snap-start xl:w-auto xl:max-w-none">
                       <TherapyCard therapy={therapy} index={index} onSelect={setSelected} />
                     </li>
                   ))}

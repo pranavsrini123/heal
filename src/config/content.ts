@@ -225,12 +225,39 @@ export const testimonials: Testimonial[] = [
   { id: "t3", quote: "Add client testimonial here.", name: "Client Name — PLACEHOLDER", isPlaceholder: true },
 ];
 
+/**
+ * Client reviews shown on phones (below 768px). Desktop keeps the list
+ * above until real reviews are added there too.
+ */
+export const mobileTestimonials: Testimonial[] = [
+  {
+    id: "m1",
+    quote:
+      "Anita’s work in acupressure is truly admirable and deeply appreciated. She demonstrates not only strong knowledge of the practice but also a genuine care for the well-being of others. Her techniques are effective and bring noticeable relief, reflecting both her skill and dedication.",
+    name: "Bharati Santosh",
+    isPlaceholder: false,
+  },
+  {
+    id: "m2",
+    quote:
+      "I had a very good experience at Sanjivini Healing Hub Belgavi. Anita madam is very kind and patient. She listens carefully and gives the right healing therapy. I felt relaxed and positive after the session.",
+    name: "Rahul Sankeshwar",
+    isPlaceholder: false,
+  },
+  {
+    id: "m3",
+    quote:
+      "I had very good experience at Sanjivini Healing Hub. Had a good therapy session with Anita mam. Felt very positive after this session. Very useful for health and body.",
+    name: "Shreya Jadhav",
+    isPlaceholder: false,
+  },
+];
+
 export const contact = {
   // Shown on the page exactly as written.
   phoneDisplay: "7816832466",
   // Used for tap-to-call links (tel:+917816832466).
   phone: "+917816832466",
-  availability: "By Appointment Only",
   // Not supplied in the original brief — replace before launch.
   email: "PLACEHOLDER — add email address",
   whatsapp: "PLACEHOLDER — add WhatsApp link",

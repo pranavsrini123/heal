@@ -45,7 +45,7 @@ export function FloatingWhatsApp() {
       </AnimatePresence>
 
       <motion.a
-        href={getWhatsAppUrl(whatsappMessages.general)}
+        href={getWhatsAppUrl(whatsappMessages.contact)}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Sanjivini Healing Hub on WhatsApp"

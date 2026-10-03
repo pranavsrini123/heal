@@ -35,7 +35,6 @@ export function Footer() {
                   {contact.phoneDisplay}
                 </a>
               </li>
-              <li className="italic text-cream-100/50">{contact.availability}</li>
               <li className="break-words italic text-cream-100/50">{contact.email}</li>
             </ul>
           </div>

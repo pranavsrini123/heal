@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { useMotionValue, useMotionValueEvent, useSpring } from "framer-motion";
 import { flowingPath, noise, type Point } from "./curves";
-import { KNOT_EXIT } from "./TangledKnot";
+import { KNOT_EXIT, KNOT_EXIT_INLINE } from "./TangledKnot";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface Geometry {
@@ -43,7 +43,8 @@ function compactPath({ w, sx, sy, ex, ey, blocks }: { w: number; sx: number; sy:
   const CLEAR = 14; // keep turns this far from any content block
 
   const pts: Point[] = [{ x: sx, y: sy }];
-  let side = -1; // start on the left: the knot sits right of centre
+  // Start in whichever margin the knot's loose end leaves into.
+  let side = sx > w / 2 ? 1 : -1;
   let y = sy;
   let wobble = 0;
 
@@ -65,10 +66,11 @@ function compactPath({ w, sx, sy, ex, ey, blocks }: { w: number; sx: number; sy:
   };
 
   const first = blocks[0];
-  // 1. The sweep out of the tangle, through the open space below the hero.
-  const sweepEnd = first ? first.top - CLEAR : sy + Math.min(140, span * 0.2);
-  pts.push({ x: xOf(side), y: Math.max(sy + 40, sweepEnd) });
-  y = pts[pts.length - 1].y;
+  // 1. Out of the tangle beside the hero heading: the loose end already
+  //    sits in the margin, so the thread simply carries on down it, past
+  //    the hero text and buttons (the hero text is the first block).
+  if (!first) runTo(sy + Math.min(140, span * 0.2));
+  else if (first.top > sy + 40) runTo(first.top - CLEAR);
 
   // 2. Down the margin, switching sides in the gaps between sections.
   blocks.forEach((b, i) => {
@@ -127,21 +129,22 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
     let raf = 0;
 
     const build = () => {
-      const start = container.querySelector('[data-thread="start"]');
-      const end = container.querySelector('[data-thread="end"]');
-      if (!start || !end) return setGeo(null);
-
       const c = container.getBoundingClientRect();
-      const s = start.getBoundingClientRect();
-      const e = end.getBoundingClientRect();
       const w = c.width;
       const h = c.height;
       // Single-column layouts (phones and tablets, below the lg breakpoint)
-      // get their own composition; the desktop path is unchanged.
+      // get their own composition, starting from the tangle beside the hero
+      // heading; the desktop path (from the framed image) is unchanged.
       const mobile = w < 1024;
+      const start = container.querySelector(mobile ? '[data-thread="start-compact"]' : '[data-thread="start"]');
+      const end = container.querySelector('[data-thread="end"]');
+      if (!start || !end) return setGeo(null);
 
-      const sx = s.left - c.left + s.width * KNOT_EXIT.x;
-      const sy = s.top - c.top + s.height * KNOT_EXIT.y;
+      const s = start.getBoundingClientRect();
+      const e = end.getBoundingClientRect();
+      const exit = mobile ? KNOT_EXIT_INLINE : KNOT_EXIT;
+      const sx = s.left - c.left + s.width * exit.x;
+      const sy = s.top - c.top + s.height * exit.y;
       const ex = e.left - c.left + e.width / 2;
       const ey = e.top - c.top;
       const span = ey - sy;
@@ -154,7 +157,7 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
             const r = el.getBoundingClientRect();
             return { top: r.top - c.top, bottom: r.bottom - c.top };
           })
-          .filter((b) => b.top > sy && b.bottom < ey);
+          .filter((b) => b.bottom > sy && b.bottom < ey);
         pts = compactPath({ w, sx, sy, ex, ey, blocks });
       } else {
         const step = Math.max(window.innerHeight * 0.62, 320);

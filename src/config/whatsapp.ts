@@ -2,8 +2,8 @@
  * ============================================================
  * WHATSAPP CONFIGURATION — the ONLY place the WhatsApp number lives.
  * ============================================================
- * Every WhatsApp CTA on the site (nav, hero, therapy cards, the
- * floating button, etc.) builds its link through `getWhatsAppUrl()`
+ * Every WhatsApp CTA on the site (Book a Consultation, Contact Us,
+ * therapy enquiries, the floating button) builds its link through `getWhatsAppUrl()`
  * below, which reads `WHATSAPP_NUMBER`. To change the number, edit
  * the value on the next line — nothing else in the codebase needs to change.
  */
@@ -14,21 +14,21 @@
 export const WHATSAPP_NUMBER = "917816832466";
 
 /**
- * Pre-filled message templates, one per CTA context. `therapy(name)` is
- * a function (not a fixed string) so every therapy — current or
- * future — gets a correctly worded, correctly encoded message without
- * a hardcoded case per therapy.
+ * Pre-filled message templates, one per kind of CTA:
+ *
+ *  - consultation → every "Book a Consultation" button (nav, mobile menu,
+ *                   hero, about, and the closing section on phones)
+ *  - contact      → every "Contact Us" button, and the floating chat button
+ *  - therapy(name)→ "Enquire on WhatsApp" inside an opened therapy card;
+ *                   a function so each therapy is named exactly
  */
-const APPOINTMENT_MESSAGE = "Hello Sanjivini Healing Hub, I would like to schedule an appointment.";
-
 export const whatsappMessages = {
-  // Default for all general appointment/contact CTAs (floating button, Contact Us).
-  general: APPOINTMENT_MESSAGE,
-  // "Book a Consultation" buttons (nav, hero, about) — same default message.
-  consultation: APPOINTMENT_MESSAGE,
-  // Therapy enquiry (inside an opened therapy card) — same concise style, with the therapy named.
+  consultation:
+    "Hello Sanjivini Healing Hub, I’m interested in beginning my healing journey and would like to schedule a consultation. Please let me know the available dates and timings. Thank you.",
+  contact:
+    "Hello Sanjivini Healing Hub, I’d love to learn more about your therapies and how they may support my wellness journey. Kindly share some details. Thank you.",
   therapy: (therapyName: string) =>
-    `Hello Sanjivini Healing Hub, I am interested in ${therapyName} and would like to schedule an appointment.`,
+    `Hello Sanjivini Healing Hub, I am interested in ${therapyName} and would like to know more about the therapy and schedule an appointment. Kindly let me know the available dates and timings. Thank you.`,
 } as const;
 
 /**

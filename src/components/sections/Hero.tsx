@@ -22,9 +22,9 @@ export function Hero() {
     <section id="home" className="relative overflow-hidden bg-forest-900" aria-label="Introduction">
       <div className="absolute inset-0 bg-forest-radial" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl items-center gap-10 px-5 pb-14 pt-24 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-32">
+      <div className="relative z-10 mx-auto grid max-w-7xl lg:min-h-[100svh] items-center gap-10 px-5 pb-14 pt-24 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-32">
         {/* Text */}
-        <div className="lg:col-span-7">
+        <div data-thread-content className="lg:col-span-7">
           <motion.span
             {...rise(0.2)}
             className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-gold-300 min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm"
@@ -32,15 +32,26 @@ export function Hero() {
             Holistic Healing &amp; Wellness
           </motion.span>
 
-          <motion.h1
-            {...rise(0.35)}
-            className="mt-5 font-display text-[2.35rem] font-medium leading-[1.08] text-cream-100 min-[375px]:text-[2.6rem] sm:mt-6 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
-          >
-            <span className="block">Healing Mind.</span>
-            <span className="block">
-              Body. <span className="gold-text">Soul.</span>
-            </span>
-          </motion.h1>
+          {/* Phones/tablets: the tangled thread sits beside the heading (on
+              desktop it lives in the framed image on the right). */}
+          <div className="mt-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-3 sm:mt-6 lg:block">
+            <motion.h1
+              {...rise(0.35)}
+              className="font-display text-[2.1rem] font-medium leading-[1.08] text-cream-100 min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+            >
+              <span className="block">Healing Mind.</span>
+              <span className="block">
+                Body. <span className="gold-text">Soul.</span>
+              </span>
+            </motion.h1>
+            <div
+              data-thread="start-compact"
+              aria-hidden="true"
+              className="relative -mr-[11px] aspect-square w-[27vw] max-w-[170px] sm:-mr-[18px] lg:hidden"
+            >
+              <TangledKnot variant="inline" />
+            </div>
+          </div>
 
           <motion.p
             {...rise(0.8)}
@@ -64,15 +75,13 @@ export function Hero() {
           </motion.p>
         </div>
 
-        {/* The story begins: a mind in tangles. On phones and tablets the frame
-            sits to the right, under the left-aligned text, so the hero stays
-            compact and the thread can sweep out from it toward the left
-            margin. Desktop (lg+) is unchanged. */}
+        {/* The story begins: a mind in tangles (desktop only — smaller
+            screens show the tangle beside the heading instead). */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
-          className="ml-auto w-[78%] max-w-[300px] sm:w-[62%] sm:max-w-[360px] lg:col-span-5 lg:mr-0 lg:w-full lg:max-w-[min(100%,calc(72svh*0.8))]"
+          className="mx-auto hidden w-full max-w-sm lg:col-span-5 lg:mr-0 lg:block lg:max-w-[min(100%,calc(72svh*0.8))]"
         >
           <StoryFrame
             image={images.story.tangledMind}

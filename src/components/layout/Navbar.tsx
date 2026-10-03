@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { nav, contact, footerLine } from "@/config/content";
+import { nav, footerLine } from "@/config/content";
 import { getWhatsAppUrl, whatsappMessages } from "@/config/whatsapp";
 import { useScrolled } from "@/hooks/useScrolled";
 import { LotusMotif } from "@/components/decorative/LotusMotif";
@@ -212,12 +212,7 @@ export function Navbar() {
               >
                 Book a Consultation
               </a>
-              <div className="flex items-center justify-between gap-4 font-sans text-sm text-cream-100/60">
-                <a href={`tel:${contact.phone}`} className="-my-3 py-3 tracking-wide transition-colors hover:text-cream-100">
-                  {contact.phoneDisplay}
-                </a>
-                <span className="font-display text-sm italic text-cream-100/40">{footerLine}</span>
-              </div>
+              <p className="font-display text-sm italic text-cream-100/40">{footerLine}</p>
             </motion.div>
           </motion.div>
         )}

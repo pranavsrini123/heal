@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { testimonials } from "@/config/content";
+import { testimonials as desktopTestimonials, mobileTestimonials } from "@/config/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export function Testimonials() {
-  const [index, setIndex] = useState(0);
+  // Phones show the three client reviews; larger screens keep their list.
+  const phone = useMediaQuery("(max-width: 767px)");
+  const testimonials = phone ? mobileTestimonials : desktopTestimonials;
+  const [rawIndex, setIndex] = useState(0);
+  const index = rawIndex % testimonials.length;
   const [direction, setDirection] = useState(1);
 
   const go = (delta: number) => {
@@ -34,7 +39,7 @@ export function Testimonials() {
               >
                 <Quote className="text-gold-400" size={30} aria-hidden="true" />
                 <p
-                  className={`font-display text-[1.2rem] sm:text-2xl leading-relaxed ${
+                  className={`font-display ${current.isPlaceholder ? "text-[1.2rem]" : "text-[1.1rem]"} sm:text-2xl leading-relaxed ${
                     current.isPlaceholder ? "italic text-forest-500" : "text-forest-900"
                   }`}
                 >

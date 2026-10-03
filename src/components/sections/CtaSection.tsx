@@ -1,17 +1,17 @@
-import { motion } from "framer-motion";
 import { images } from "@/config/images";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { whatsappMessages } from "@/config/whatsapp";
 
 /**
- * Closing invitation. A single action now (Contact Us → WhatsApp), so it
+ * Closing invitation. A single WhatsApp action (Book a Consultation on
+ * phones, Contact Us on larger screens), so it
  * takes the gold emphasis and sits centred under the line it answers.
  * id="contact" keeps the navigation's "Contact" link working.
  */
 export function CtaSection() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-forest-radial pb-20 pt-24 sm:py-32" aria-label="Begin your journey">
+    <section id="contact" className="relative overflow-hidden bg-forest-radial py-20 sm:py-32" aria-label="Begin your journey">
       <img
         src={images.textures.darkBotanical}
         alt=""
@@ -21,23 +21,6 @@ export function CtaSection() {
       />
       <div className="absolute inset-0 bg-forest-950/75" aria-hidden="true" />
 
-      {/* Phones/tablets: the thread that settled at the therapist's portrait
-          (centred directly above) continues down into this invitation. */}
-      {/* (The observer sits on the unscaled wrapper: a scaleY(0) element
-          has no area, so it would never count as "in view".) */}
-      <motion.span
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 z-[1] mx-auto block h-16 w-px lg:hidden"
-        initial="hidden"
-        whileInView="shown"
-        viewport={{ once: true, amount: 0.6 }}
-      >
-        <motion.span
-          className="block h-full w-full origin-top bg-gradient-to-b from-gold-400/80 to-gold-400/0"
-          variants={{ hidden: { scaleY: 0 }, shown: { scaleY: 1 } }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </motion.span>
 
       <div className="relative z-[2] mx-auto flex max-w-3xl flex-col items-center gap-5 px-6 text-center sm:gap-6 sm:px-8">
         <RevealOnScroll>
@@ -51,7 +34,12 @@ export function CtaSection() {
           </p>
         </RevealOnScroll>
         <RevealOnScroll delay={0.2} className="mt-3 w-full sm:mt-4 sm:w-auto">
-          <WhatsAppButton message={whatsappMessages.general} variant="gold" className="w-full max-w-[280px] justify-center sm:w-auto sm:max-w-none">
+          {/* One action only: phones get "Book a Consultation", larger
+              screens keep "Contact Us". */}
+          <WhatsAppButton message={whatsappMessages.consultation} variant="gold" className="w-full max-w-[280px] justify-center md:hidden">
+            Book a Consultation
+          </WhatsAppButton>
+          <WhatsAppButton message={whatsappMessages.contact} variant="gold" className="hidden md:inline-flex">
             Contact Us
           </WhatsAppButton>
         </RevealOnScroll>
