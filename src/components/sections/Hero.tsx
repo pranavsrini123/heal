@@ -32,26 +32,20 @@ export function Hero() {
             Holistic Healing &amp; Wellness
           </motion.span>
 
-          {/* Phones/tablets: the tangled thread sits beside the heading (on
-              desktop it lives in the framed image on the right). */}
-          <div className="mt-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-3 sm:mt-6 lg:block">
-            <motion.h1
-              {...rise(0.35)}
-              className="font-display text-[2.1rem] font-medium leading-[1.08] text-cream-100 min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
-            >
-              <span className="block">Healing Mind.</span>
-              <span className="block">
-                Body. <span className="gold-text">Soul.</span>
-              </span>
-            </motion.h1>
-            {/* The tangle is drawn here by StoryThread, as the start of the
-                same single stroke that runs down the page. */}
-            <div
-              data-thread="start-compact"
-              aria-hidden="true"
-              className="relative -mr-[11px] aspect-square w-[27vw] max-w-[170px] sm:-mr-[18px] lg:hidden"
-            />
-          </div>
+          {/* Phones/tablets: StoryThread measures this heading's lines and draws
+              the tangle in the space to the right of "Mind." — the start of the
+              same single stroke that runs down the page. (On desktop the tangle
+              lives in the framed image on the right.) */}
+          <motion.h1
+            {...rise(0.35)}
+            data-thread="start-compact"
+            className="mt-5 font-display text-[2.1rem] font-medium leading-[1.08] text-cream-100 min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:mt-6 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+          >
+            <span className="block">Healing Mind.</span>
+            <span className="block">
+              Body. <span className="gold-text">Soul.</span>
+            </span>
+          </motion.h1>
 
           <motion.p
             {...rise(0.8)}

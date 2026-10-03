@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { useMotionValue, useMotionValueEvent, useSpring } from "framer-motion";
 import { flowingPath, noise, smoothPath, type Point } from "./curves";
-import { INLINE_BOX, KNOT_EXIT, KNOT_EXIT_INLINE, KNOT_TENSION, inlineKnotPoints } from "./TangledKnot";
+import { KNOT_EXIT, KNOT_TENSION, knotLoopPoints } from "./TangledKnot";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface Geometry {
@@ -19,6 +19,102 @@ interface LengthTable {
 
 const GOLD = "#c9a24e";
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
+/** Layout rect corrected for a CSS translate (entrance animations). */
+function settledRect(el: Element, r: DOMRect | { left: number; right: number; top: number; bottom: number }) {
+  const m = getComputedStyle(el as HTMLElement).transform;
+  let tx = 0;
+  let ty = 0;
+  if (m && m !== "none") {
+    const v = new DOMMatrixReadOnly(m);
+    tx = v.m41;
+    ty = v.m42;
+  }
+  return { left: r.left - tx, right: r.right - tx, top: r.top - ty, bottom: r.bottom - ty };
+}
+
+/** Extent of the actual text in an element (not its full-width box). */
+function textRect(el: Element, transformed: Element) {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  return settledRect(transformed, range.getBoundingClientRect());
+}
+
+/** The knot's loops, starting on the first loop (no stray tail toward the type). */
+const heroLoops = () => knotLoopPoints().slice(1);
+
+/** True drawn extent of the loops (the spline overshoots its points). */
+let loopBox: { x: number; y: number; w: number; h: number } | null = null;
+function loopsBBox() {
+  if (loopBox) return loopBox;
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("style", "position:absolute;width:0;height:0;overflow:hidden;visibility:hidden");
+  const path = document.createElementNS(ns, "path");
+  path.setAttribute("d", smoothPath(heroLoops(), KNOT_TENSION));
+  svg.appendChild(path);
+  document.body.appendChild(svg);
+  const b = path.getBBox();
+  svg.remove();
+  loopBox = { x: b.x, y: b.y, w: b.width, h: b.height };
+  return loopBox;
+}
+
+/**
+ * Phones/tablets: the tangle beside the hero heading, and the strand that
+ * loosens out of it. Everything is measured from the rendered heading, so
+ * it adapts to any width and font:
+ *
+ *  - the loops are sized from the heading's type size (so they never
+ *    out-weigh it), right-aligned to the same edge as the buttons below,
+ *    and vertically centred on the two-line heading — clear of the eyebrow
+ *    above, with breathing room from the end of "Healing Mind.";
+ *  - the strand unwinds from under the loops into the side margin and
+ *    arrives there heading straight down — so the journey thread continues
+ *    from it as one stroke.
+ *
+ * Returns the points (container coordinates) and where the strand ends.
+ */
+function heroTangle(h1: Element, c: DOMRect, w: number) {
+  const lines = h1.children;
+  if (lines.length < 2) return null;
+  const pad = w >= 640 ? 32 : 20;
+  const gutterX = w - pad * 0.45;
+  const fs = parseFloat(getComputedStyle(h1).fontSize);
+  const l1 = textRect(lines[0], h1);
+  const head = settledRect(h1, h1.getBoundingClientRect());
+  const eyebrow = h1.previousElementSibling;
+  const eyebrowBottom = eyebrow ? settledRect(eyebrow, eyebrow.getBoundingClientRect()).bottom : head.top - 24;
+
+  const box = loopsBBox();
+  const ratio = box.h / box.w;
+  const gap = Math.max(16, fs * 0.45); // breathing room from the type
+  const right = w - pad; // the content edge — same as the buttons
+  const roomX = right - (l1.right + gap);
+  const roomY = head.bottom - 6 - (eyebrowBottom + 12);
+  const width = Math.min(roomX, fs * 2.3, 100, roomY / ratio);
+  if (width < 44) return null;
+  const height = width * ratio;
+  const k = width / box.w;
+  const x0 = right - width;
+  const mid = (head.top + head.bottom) / 2;
+  const top = clamp(mid - height / 2, eyebrowBottom + 12, head.bottom - 6 - height);
+  const map = (p: Point) => ({ x: x0 + (p.x - box.x) * k - c.left, y: top + (p.y - box.y) * k - c.top });
+  const pts = heroLoops().map(map);
+
+  // The loosening strand: a soft curl under the loops, then a rounded turn
+  // out into the margin, where it settles into a vertical line. Once in the
+  // margin it is beside (never over) the paragraph and buttons.
+  const bottom = top + height;
+  const turn = Math.max(12, fs * 0.38);
+  pts.push(
+    { x: x0 + width * 0.5 - c.left, y: bottom + 4 - c.top },
+    { x: x0 + width * 0.8 - c.left, y: bottom + 4 + turn * 0.35 - c.top },
+    { x: gutterX - 2 - c.left, y: bottom + 4 + turn * 1.2 - c.top },
+    { x: gutterX - c.left, y: bottom + 4 + turn * 2.4 - c.top },
+  );
+  return { pts, exit: pts[pts.length - 1] };
+}
 
 interface Block {
   top: number;
@@ -142,9 +238,10 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
 
       const s = start.getBoundingClientRect();
       const e = end.getBoundingClientRect();
-      const exit = mobile ? KNOT_EXIT_INLINE : KNOT_EXIT;
-      const sx = s.left - c.left + s.width * exit.x;
-      const sy = s.top - c.top + s.height * exit.y;
+      const tangle = mobile ? heroTangle(start, c, w) : null;
+      if (mobile && !tangle) return setGeo(null);
+      const sx = tangle ? tangle.exit.x : s.left - c.left + s.width * KNOT_EXIT.x;
+      const sy = tangle ? tangle.exit.y : s.top - c.top + s.height * KNOT_EXIT.y;
       const ex = e.left - c.left + e.width / 2;
       const ey = e.top - c.top;
       const span = ey - sy;
@@ -184,17 +281,11 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
       }
 
       let d = flowingPath(pts);
-      if (mobile) {
+      if (tangle) {
         // The tangle beside the hero heading is the first part of the very
-        // same stroke: its loose end is exactly the journey's first point,
-        // so knot and thread are one continuous path with no seam.
-        const k = s.width / INLINE_BOX.size;
-        const knot = inlineKnotPoints().map((p) => ({
-          x: s.left - c.left + (p.x - INLINE_BOX.x) * k,
-          y: s.top - c.top + (p.y - INLINE_BOX.y) * k,
-        }));
-        knot[knot.length - 1] = { x: sx, y: sy };
-        d = `${smoothPath(knot, KNOT_TENSION)} ${d.replace(/^M [^C]+/, "")}`;
+        // same stroke: the strand's end is exactly the journey's first point,
+        // so knot, strand and thread are one continuous path with no seam.
+        d = `${smoothPath(tangle.pts, KNOT_TENSION)} ${d.replace(/^M [^C]+/, "")}`;
       }
 
       setGeo({ w, h, d, mobile });
