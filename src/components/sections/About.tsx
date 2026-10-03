@@ -77,7 +77,8 @@ export function About() {
                 at your pace, on your terms.
               </p>
             </RevealOnScroll>
-            <RevealOnScroll direction="left" delay={0.3} className="mt-3 sm:mt-4">
+            {/* Phones: no button here — the section closes on the text. */}
+            <RevealOnScroll direction="left" delay={0.3} className="hidden md:mt-4 md:block">
               <WhatsAppButton message={whatsappMessages.consultation} variant="primary" className="w-full justify-center sm:w-auto">
                 Book a Consultation
               </WhatsAppButton>
