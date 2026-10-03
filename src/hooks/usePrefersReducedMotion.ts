@@ -1,0 +1,21 @@
+import { useEffect, useState } from "react";
+
+/**
+ * Tracks the user's `prefers-reduced-motion` OS setting so components can
+ * disable or simplify decorative animation while keeping functional
+ * transitions intact.
+ */
+export function usePrefersReducedMotion(): boolean {
+  const [prefersReduced, setPrefersReduced] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReduced(query.matches);
+
+    const listener = (event: MediaQueryListEvent) => setPrefersReduced(event.matches);
+    query.addEventListener("change", listener);
+    return () => query.removeEventListener("change", listener);
+  }, []);
+
+  return prefersReduced;
+}

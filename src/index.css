@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  /* viewport-fit=cover lets fixed UI use env(safe-area-inset-*); keep page
+     content clear of a landscape notch (these are 0 in portrait). */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+::selection {
+  background-color: #c9a24e;
+  color: #152418;
+}
+
+/* Subtle grain texture, used as a fixed overlay */
+.grain-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Note: named .heading-ligatures (not .font-display) to avoid colliding
+   with Tailwind's generated `font-display` font-family utility class,
+   which is used throughout for heading typography. */
+.heading-ligatures {
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+/* Gold gradient text used for hero / heading highlights */
+.gold-text {
+  background: linear-gradient(120deg, #af8a3c 0%, #ecd9a8 45%, #c9a24e 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gold-text-animated {
+  animation: shimmer 4s linear infinite;
+}
+
+/* Custom scrollbar, kept subtle */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fbf7ef;
+}
+::-webkit-scrollbar-thumb {
+  background: #c2d5bf;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9bba96;
+}
