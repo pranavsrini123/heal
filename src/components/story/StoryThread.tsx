@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { useMotionValue, useMotionValueEvent, useSpring } from "framer-motion";
-import { flowingPath, noise, type Point } from "./curves";
-import { KNOT_EXIT, KNOT_EXIT_INLINE } from "./TangledKnot";
+import { flowingPath, noise, smoothPath, type Point } from "./curves";
+import { INLINE_BOX, KNOT_EXIT, KNOT_EXIT_INLINE, KNOT_TENSION, inlineKnotPoints } from "./TangledKnot";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 interface Geometry {
@@ -183,7 +183,21 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
         pts.push({ x: ex, y: ey + 2 });
       }
 
-      setGeo({ w, h, d: flowingPath(pts), mobile });
+      let d = flowingPath(pts);
+      if (mobile) {
+        // The tangle beside the hero heading is the first part of the very
+        // same stroke: its loose end is exactly the journey's first point,
+        // so knot and thread are one continuous path with no seam.
+        const k = s.width / INLINE_BOX.size;
+        const knot = inlineKnotPoints().map((p) => ({
+          x: s.left - c.left + (p.x - INLINE_BOX.x) * k,
+          y: s.top - c.top + (p.y - INLINE_BOX.y) * k,
+        }));
+        knot[knot.length - 1] = { x: sx, y: sy };
+        d = `${smoothPath(knot, KNOT_TENSION)} ${d.replace(/^M [^C]+/, "")}`;
+      }
+
+      setGeo({ w, h, d, mobile });
     };
 
     const schedule = () => {
@@ -289,8 +303,9 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
         ref={pathRef}
         d={geo.d}
         stroke={GOLD}
-        strokeOpacity={geo.mobile ? 0.6 : 0.7}
-        strokeWidth={geo.mobile ? 1.1 : 1.3}
+        strokeOpacity={geo.mobile ? 0.75 : 0.7}
+        strokeWidth={geo.mobile ? 1.25 : 1.3}
+        strokeLinejoin="round"
         strokeLinecap="round"
       />
       {!reduced && <circle ref={beadRef} r={geo.mobile ? 2.2 : 2.6} fill={GOLD} />}

@@ -44,13 +44,13 @@ export function Hero() {
                 Body. <span className="gold-text">Soul.</span>
               </span>
             </motion.h1>
+            {/* The tangle is drawn here by StoryThread, as the start of the
+                same single stroke that runs down the page. */}
             <div
               data-thread="start-compact"
               aria-hidden="true"
               className="relative -mr-[11px] aspect-square w-[27vw] max-w-[170px] sm:-mr-[18px] lg:hidden"
-            >
-              <TangledKnot variant="inline" />
-            </div>
+            />
           </div>
 
           <motion.p

@@ -17,14 +17,16 @@ const H = 500;
 export const KNOT_EXIT = { x: 0.7, y: 1 }; // where the loose end leaves the frame (fractions of W/H)
 
 /**
- * Phones/tablets: the same knot drawn without a frame, beside the hero
- * heading. Square crop around the loops; the loose strand leaves from the
- * bottom-right corner, where the page thread picks it up.
+ * Phones/tablets: the same knot without a frame, beside the hero heading.
+ * It is not drawn here: StoryThread maps these points into the square box
+ * beside the heading and draws knot + journey as ONE continuous stroke.
+ * The loose strand leaves the box's bottom-right corner heading straight
+ * down, so the knot flows into the page thread without a seam.
  */
-const INLINE_BOX = { x: 90, y: 45, size: 300 };
+export const INLINE_BOX = { x: 90, y: 45, size: 300 };
 export const KNOT_EXIT_INLINE = { x: 1, y: 1 };
 
-function buildKnot(strand: Point[]): string {
+function knotPoints(strand: Point[]): Point[] {
   const cx = 205;
   const cy = 150;
   const pts: Point[] = [{ x: 120, y: 70 }];
@@ -36,24 +38,30 @@ function buildKnot(strand: Point[]): string {
   }
   // The loose strand: winding down and out of the frame.
   pts.push(...strand);
-  return smoothPath(pts, 0.35);
+  return pts;
 }
+
+export const KNOT_TENSION = 0.35;
 
 const FRAME_STRAND: Point[] = [{ x: 244, y: 262 }, { x: 300, y: 328 }, { x: 262, y: 404 }, { x: W * KNOT_EXIT.x, y: H * KNOT_EXIT.y }];
 const INLINE_STRAND: Point[] = [
   { x: 262, y: 246 },
-  { x: 330, y: 282 },
+  { x: 334, y: 268 },
+  { x: 386, y: 303 },
   { x: INLINE_BOX.x + INLINE_BOX.size * KNOT_EXIT_INLINE.x, y: INLINE_BOX.y + INLINE_BOX.size * KNOT_EXIT_INLINE.y },
 ];
 
-export function TangledKnot({ className = "", variant = "frame" }: { className?: string; variant?: "frame" | "inline" }) {
-  const inline = variant === "inline";
-  const d = useMemo(() => buildKnot(inline ? INLINE_STRAND : FRAME_STRAND), [inline]);
+/** The phone knot, in INLINE_BOX coordinates, ending at the exit corner. */
+export const inlineKnotPoints = (): Point[] => knotPoints(INLINE_STRAND);
+
+/** Desktop: the knot drawn inside the framed opening image. */
+export function TangledKnot({ className = "" }: { className?: string }) {
+  const d = useMemo(() => smoothPath(knotPoints(FRAME_STRAND), KNOT_TENSION), []);
   const reduced = usePrefersReducedMotion();
 
   return (
     <svg
-      viewBox={inline ? `${INLINE_BOX.x} ${INLINE_BOX.y} ${INLINE_BOX.size} ${INLINE_BOX.size}` : `0 0 ${W} ${H}`}
+      viewBox={`0 0 ${W} ${H}`}
       className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
       fill="none"
       aria-hidden="true"

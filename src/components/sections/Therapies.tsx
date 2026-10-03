@@ -31,7 +31,7 @@ export function Therapies() {
                     <p className="font-sans text-sm text-forest-700/70">{therapyCategories[category].description}</p>
                   </div>
                   {/* Swipe hint — only where the row scrolls. */}
-                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[11px] uppercase tracking-widest2 text-gold-600/80 md:flex xl:hidden" aria-hidden="true">
+                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[11px] uppercase tracking-widest2 text-gold-600/80 min-[360px]:flex xl:hidden" aria-hidden="true">
                     Swipe
                     <svg width="18" height="8" viewBox="0 0 18 8" fill="none">
                       <path d="M0 4h16m0 0L13 1m3 3-3 3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -41,12 +41,14 @@ export function Therapies() {
 
                 {/*
                   Desktop (xl+): all five cards in one row.
-                  Tablets (md–xl): a horizontally swipeable row.
-                  Phones: a static stack, inset like the Why Choose cards.
+                  Tablets (md–xl): a full-bleed swipeable row.
+                  Phones: a swipeable row kept inside the page margins (same
+                  inset as the Why Choose cards), so cards never touch the
+                  screen edge. Only this row scrolls sideways — never the page.
                 */}
-                <ul className="flex flex-col gap-3 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:-mx-8 md:-mt-2 md:flex-row md:snap-x md:snap-mandatory md:scroll-px-8 md:gap-4 md:overflow-x-auto md:overscroll-x-contain md:px-8 md:pb-3 md:pt-2 xl:mx-0 xl:mt-0 xl:grid xl:grid-cols-5 xl:gap-5 xl:overflow-visible xl:px-0 xl:pb-0 xl:pt-0 [&::-webkit-scrollbar]:hidden">
+                <ul className="-mx-1 flex snap-x snap-mandatory scroll-px-1 gap-3 overflow-x-auto overscroll-x-contain px-1 pb-2 pt-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:-mx-8 md:-mt-2 md:scroll-px-8 md:gap-4 md:px-8 md:pb-3 md:pt-2 xl:mx-0 xl:mt-0 xl:grid xl:grid-cols-5 xl:gap-5 xl:overflow-visible xl:px-0 xl:pb-0 xl:pt-0 [&::-webkit-scrollbar]:hidden">
                   {items.map((therapy, index) => (
-                    <li key={therapy.id} className="w-full md:w-[280px] md:shrink-0 md:snap-start xl:w-auto xl:max-w-none">
+                    <li key={therapy.id} className="w-[86%] max-w-[320px] shrink-0 snap-start md:w-[280px] md:max-w-none xl:w-auto">
                       <TherapyCard therapy={therapy} index={index} onSelect={setSelected} />
                     </li>
                   ))}
