@@ -47,6 +47,16 @@ export function Hero() {
             </span>
           </motion.h1>
 
+          {/* Phones/tablets: a quiet caption for the tangle drawn beside the
+              heading — set under it, right-aligned to the same edge, so the
+              two read as one figure. (Desktop: not shown.) */}
+          <motion.p
+            {...rise(0.65)}
+            className="ml-auto mt-4 max-w-[15rem] text-right font-display text-base italic leading-snug text-cream-100/55 lg:hidden"
+          >
+            When the mind feels overwhelmed, everything can feel tangled.
+          </motion.p>
+
           <motion.p
             {...rise(0.8)}
             className="mt-6 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-8 text-cream-100/75 sm:text-lg"

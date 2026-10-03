@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { testimonials as desktopTestimonials, mobileTestimonials } from "@/config/content";
+import { testimonials } from "@/config/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
 export function Testimonials() {
-  // Phones show the three client reviews; larger screens keep their list.
-  const phone = useMediaQuery("(max-width: 767px)");
-  const testimonials = phone ? mobileTestimonials : desktopTestimonials;
-  const [rawIndex, setIndex] = useState(0);
-  const index = rawIndex % testimonials.length;
+  const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
   const go = (delta: number) => {
@@ -22,10 +18,28 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="relative bg-cream-100 py-12 sm:py-20" aria-label="Client testimonials">
-      <div data-thread-content className="relative z-[2] mx-auto max-w-3xl px-5 sm:px-8">
+      <div data-thread-content className="relative z-[2] mx-auto max-w-3xl px-5 sm:px-8 lg:max-w-7xl">
         <SectionHeading eyebrow="Testimonials" title="Words From Our Community" />
 
-        <div className="relative mt-10 sm:mt-16">
+        {/* Desktop: all three reviews side by side, in the same card style. */}
+        <ul className="mt-16 hidden grid-cols-3 gap-6 lg:grid">
+          {testimonials.map((t, i) => (
+            <li key={t.id}>
+              <RevealOnScroll delay={i * 0.08} className="h-full">
+                <figure className="flex h-full flex-col items-center gap-6 rounded-3xl border border-forest-900/5 bg-cream-50 px-9 py-11 text-center shadow-sm">
+                  <Quote className="shrink-0 text-gold-400" size={30} aria-hidden="true" />
+                  <blockquote className="flex-1 font-display text-xl leading-relaxed text-forest-900">
+                    {`"${t.quote}"`}
+                  </blockquote>
+                  <figcaption className="font-sans text-sm uppercase tracking-widest2 text-gold-600">{t.name}</figcaption>
+                </figure>
+              </RevealOnScroll>
+            </li>
+          ))}
+        </ul>
+
+        {/* Phones and tablets: the existing one-at-a-time carousel. */}
+        <div className="relative mt-10 sm:mt-16 lg:hidden">
           <div className="relative min-h-[200px] sm:min-h-[220px] flex items-center justify-center overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div

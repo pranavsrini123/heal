@@ -219,17 +219,8 @@ export interface Testimonial {
   isPlaceholder: boolean;
 }
 
+/** Client reviews — every screen size (carousel on phones/tablets, three cards on desktop). */
 export const testimonials: Testimonial[] = [
-  { id: "t1", quote: "Add client testimonial here.", name: "Client Name — PLACEHOLDER", isPlaceholder: true },
-  { id: "t2", quote: "Add client testimonial here.", name: "Client Name — PLACEHOLDER", isPlaceholder: true },
-  { id: "t3", quote: "Add client testimonial here.", name: "Client Name — PLACEHOLDER", isPlaceholder: true },
-];
-
-/**
- * Client reviews shown on phones (below 768px). Desktop keeps the list
- * above until real reviews are added there too.
- */
-export const mobileTestimonials: Testimonial[] = [
   {
     id: "m1",
     quote:
