@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import { images } from "@/config/images";
 import { practitioner } from "@/config/content";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { whatsappMessages } from "@/config/whatsapp";
 import { StoryFrame } from "@/components/story/StoryFrame";
 
 /**
@@ -76,12 +74,6 @@ export function About() {
                 balanced rhythm to life, Anita works alongside you to build a gentle path forward —
                 at your pace, on your terms.
               </p>
-            </RevealOnScroll>
-            {/* Phones: no button here — the section closes on the text. */}
-            <RevealOnScroll direction="left" delay={0.3} className="hidden md:mt-4 md:block">
-              <WhatsAppButton message={whatsappMessages.consultation} variant="primary" className="w-full justify-center sm:w-auto">
-                Book a Consultation
-              </WhatsAppButton>
             </RevealOnScroll>
           </div>
         </div>

@@ -4,8 +4,7 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { whatsappMessages } from "@/config/whatsapp";
 
 /**
- * Closing invitation. A single WhatsApp action (Book a Consultation on
- * phones, Contact Us on larger screens), so it
+ * Closing invitation. A single WhatsApp action (Book a Consultation), so it
  * takes the gold emphasis and sits centred under the line it answers.
  * id="contact" keeps the navigation's "Contact" link working.
  */
@@ -34,13 +33,8 @@ export function CtaSection() {
           </p>
         </RevealOnScroll>
         <RevealOnScroll delay={0.2} className="mt-3 w-full sm:mt-4 sm:w-auto">
-          {/* One action only: phones get "Book a Consultation", larger
-              screens keep "Contact Us". */}
-          <WhatsAppButton message={whatsappMessages.consultation} variant="gold" className="w-full max-w-[280px] justify-center md:hidden">
+          <WhatsAppButton message={whatsappMessages.consultation} variant="gold" className="w-full max-w-[280px] justify-center md:w-auto md:max-w-none">
             Book a Consultation
-          </WhatsAppButton>
-          <WhatsAppButton message={whatsappMessages.contact} variant="gold" className="hidden md:inline-flex">
-            Contact Us
           </WhatsAppButton>
         </RevealOnScroll>
       </div>
