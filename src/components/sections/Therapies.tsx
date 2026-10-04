@@ -16,11 +16,7 @@ export function Therapies() {
   return (
     <section id="therapies" className="relative bg-cream-100 pb-10 pt-16 sm:pb-16 sm:pt-28" aria-label="Our therapies">
       <div data-thread-content className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow="Our Therapies"
-          title="Explore Our Therapies"
-          subtitle="Personalized approaches for physical, emotional and energetic wellbeing."
-        />
+        <SectionHeading eyebrow="Our Therapies" title="Explore Our Therapies" />
 
         <div className="mt-10 flex flex-col gap-10 sm:mt-16 sm:gap-16">
           {categoryOrder.map((category) => {
@@ -29,13 +25,13 @@ export function Therapies() {
               <div key={category}>
                 <div className="mb-5 flex items-end justify-between gap-4 sm:mb-7">
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="font-display text-xl font-semibold text-wine-800 sm:text-2xl">
+                    <h3 className="text-balance font-display text-2xl font-semibold text-wine-800 sm:text-3xl">
                       {therapyCategories[category].title}
                     </h3>
                     <p className="font-sans text-sm text-ink-700/70">{therapyCategories[category].description}</p>
                   </div>
                   {/* Swipe hint — only where the row scrolls. */}
-                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[9.5px] uppercase tracking-widest2 text-clay-600/80 min-[360px]:flex md:text-[11px] xl:hidden" aria-hidden="true">
+                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[9px] uppercase tracking-widest2 text-clay-600/80 min-[360px]:flex md:text-[11px] xl:hidden" aria-hidden="true">
                     Swipe
                     <svg width="18" height="8" viewBox="0 0 18 8" fill="none">
                       <path d="M0 4h16m0 0L13 1m3 3-3 3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
