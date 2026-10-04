@@ -6,6 +6,10 @@ import { TherapyModal } from "./TherapyModal";
 
 const categoryOrder: TherapyCategory[] = ["physical", "mental"];
 
+// A faint terracotta wash on one or two cards per row — enough warmth to
+// break the monotone without turning the cards into a colour scheme.
+const TINTED: Record<TherapyCategory, number[]> = { physical: [2], mental: [1, 3] };
+
 export function Therapies() {
   const [selected, setSelected] = useState<Therapy | null>(null);
 
@@ -25,7 +29,7 @@ export function Therapies() {
               <div key={category}>
                 <div className="mb-5 flex items-end justify-between gap-4 sm:mb-7">
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="font-display text-xl font-semibold text-ink-900 sm:text-2xl">
+                    <h3 className="font-display text-xl font-semibold text-wine-800 sm:text-2xl">
                       {therapyCategories[category].title}
                     </h3>
                     <p className="font-sans text-sm text-ink-700/70">{therapyCategories[category].description}</p>
@@ -49,7 +53,7 @@ export function Therapies() {
                 <ul className="-mx-1 flex snap-x snap-mandatory scroll-px-1 gap-3 overflow-x-auto overscroll-x-contain px-1 pb-2 pt-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:-mx-8 md:-mt-2 md:scroll-px-8 md:gap-4 md:px-8 md:pb-3 md:pt-2 xl:mx-0 xl:mt-0 xl:grid xl:grid-cols-5 xl:gap-5 xl:overflow-visible xl:px-0 xl:pb-0 xl:pt-0 [&::-webkit-scrollbar]:hidden">
                   {items.map((therapy, index) => (
                     <li key={therapy.id} className="w-[86%] max-w-[320px] shrink-0 snap-start md:w-[280px] md:max-w-none xl:w-auto">
-                      <TherapyCard therapy={therapy} index={index} onSelect={setSelected} />
+                      <TherapyCard therapy={therapy} index={index} onSelect={setSelected} tinted={TINTED[category].includes(index)} />
                     </li>
                   ))}
                 </ul>

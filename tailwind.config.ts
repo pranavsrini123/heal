@@ -34,6 +34,8 @@ export default {
           800: "#4a1820", // section headings
         },
         clay: {
+          50: "#fbf0e7", // the faintest terracotta wash — for one or two tinted cards
+          100: "#f6e3d4",
           200: "#f3cfb4",
           300: "#e3a174",
           400: "#c96a3a", // burnt terracotta — main accent CTA

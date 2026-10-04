@@ -41,16 +41,15 @@ export function WhyChoose() {
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="flex h-full flex-row items-start gap-4 rounded-3xl bg-cream-50 p-5 shadow-sm sm:flex-col sm:p-6 hover:shadow-soft border border-ink-900/5 hover:border-saffron-300/40 transition-shadow duration-300"
+                  className={`flex h-full flex-row items-start gap-4 rounded-3xl border p-5 shadow-sm transition-shadow duration-300 hover:border-saffron-400/50 hover:shadow-soft sm:flex-col sm:p-6 ${index % 2 === 1 ? "border-clay-200/70 bg-clay-50" : "border-ink-900/5 bg-cream-50"}`}
                 >
-                  {/* Icon rendered as a gold line-mark on a quiet forest
-                      chip — gold as an accent stroke, not a fill, keeping
-                      the color rare and deliberate rather than decorative. */}
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-clay-400/50 text-clay-500">
+                  {/* Terracotta line icon inside a fine muted-gold ring — an
+                      accent stroke, never a filled colour chip. */}
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-saffron-400/60 text-clay-500">
                     <Icon size={19} strokeWidth={1.5} />
                   </span>
                   <div>
-                    <h3 className="font-display text-[1.1rem] sm:text-lg font-semibold text-ink-900 leading-snug">
+                    <h3 className="font-display text-[1.1rem] sm:text-lg font-semibold text-wine-800 leading-snug">
                       {item.title}
                     </h3>
                     <p className="mt-1.5 font-sans text-sm sm:mt-2 text-ink-700/75 leading-relaxed">{item.description}</p>
