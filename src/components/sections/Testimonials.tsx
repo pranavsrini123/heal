@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { testimonials } from "@/config/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+
+const cardClass =
+  "flex w-full flex-col items-center gap-5 rounded-3xl border border-ink-900/5 bg-cream-50 px-6 py-8 text-center shadow-sm sm:gap-6 sm:px-12 sm:py-12";
+const quoteClass = "font-display text-[1.1rem] leading-relaxed text-ink-900 sm:text-2xl lg:text-[1.55rem]";
+const nameClass = "font-sans text-xs uppercase tracking-widest2 text-clay-600 sm:text-sm";
 
 export function Testimonials() {
   const [index, setIndex] = useState(0);
@@ -15,32 +19,24 @@ export function Testimonials() {
   };
 
   const current = testimonials[index];
+  const longest = testimonials.reduce((a, b) => (b.quote.length > a.quote.length ? b : a));
 
   return (
     <section id="testimonials" className="relative bg-cream-100 py-12 sm:py-20" aria-label="Client testimonials">
-      <div data-thread-content className="relative z-[2] mx-auto max-w-3xl px-5 sm:px-8 lg:max-w-7xl">
+      <div data-thread-content className="relative z-[2] mx-auto max-w-3xl px-5 sm:px-8">
         <SectionHeading eyebrow="Testimonials" title="Words From Our Community" />
 
-        {/* Desktop: all three reviews side by side, in the same card style. */}
-        <ul className="mt-16 hidden grid-cols-3 gap-6 lg:grid">
-          {testimonials.map((t, i) => (
-            <li key={t.id}>
-              <RevealOnScroll delay={i * 0.08} className="h-full">
-                <figure className="flex h-full flex-col items-center gap-6 rounded-3xl border border-ink-900/5 bg-cream-50 px-9 py-11 text-center shadow-sm">
-                  <Quote className="shrink-0 text-clay-400" size={30} aria-hidden="true" />
-                  <blockquote className="flex-1 font-display text-xl leading-relaxed text-ink-900">
-                    {`"${t.quote}"`}
-                  </blockquote>
-                  <figcaption className="font-sans text-sm uppercase tracking-widest2 text-clay-600">{t.name}</figcaption>
-                </figure>
-              </RevealOnScroll>
-            </li>
-          ))}
-        </ul>
-
-        {/* Phones and tablets: the existing one-at-a-time carousel. */}
-        <div className="relative mt-10 sm:mt-16 lg:hidden">
-          <div className="relative min-h-[200px] sm:min-h-[220px] flex items-center justify-center overflow-hidden">
+        {/* One review at a time on every screen size; arrows and dots below.
+            No autoplay — the visitor moves between them. */}
+        <div className="relative mt-10 sm:mt-16">
+          <div className="relative grid min-h-[200px] items-center justify-items-center overflow-hidden sm:min-h-[220px]">
+            {/* Desktop: an invisible copy of the longest review holds the
+                height steady, so the page never jumps between reviews. */}
+            <div aria-hidden="true" className={`${cardClass} invisible hidden [grid-area:1/1] lg:flex`}>
+              <Quote size={30} />
+              <p className={quoteClass}>{`"${longest.quote}"`}</p>
+              <span className={nameClass}>{longest.name}</span>
+            </div>
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={current.id}
@@ -49,19 +45,11 @@ export function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -direction * 40 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full text-center flex flex-col items-center gap-5 sm:gap-6 rounded-3xl bg-cream-50 border border-ink-900/5 shadow-sm px-6 sm:px-12 py-8 sm:py-12"
+                className={`${cardClass} [grid-area:1/1]`}
               >
-                <Quote className="text-clay-400" size={30} aria-hidden="true" />
-                <p
-                  className={`font-display ${current.isPlaceholder ? "text-[1.2rem]" : "text-[1.1rem]"} sm:text-2xl leading-relaxed ${
-                    current.isPlaceholder ? "italic text-ink-500" : "text-ink-900"
-                  }`}
-                >
-                  {current.isPlaceholder ? `"${current.quote}"` : `"${current.quote}"`}
-                </p>
-                <span className="font-sans text-xs sm:text-sm uppercase tracking-widest2 text-clay-600">
-                  {current.name}
-                </span>
+                <Quote className="text-saffron-400" size={30} aria-hidden="true" />
+                <p className={quoteClass}>{`"${current.quote}"`}</p>
+                <span className={nameClass}>{current.name}</span>
               </motion.div>
             </AnimatePresence>
           </div>

@@ -21,17 +21,17 @@ interface ButtonProps extends NativeAnchorProps {
  * Five variants, each with a single, fixed job — no per-usage color
  * overrides anywhere else in the codebase:
  *
- *  - primary:   the default CTA on light backgrounds (deep terracotta).
+ *  - primary:   the default CTA on light backgrounds (deep burgundy).
  *  - secondary: a quieter alternative on light backgrounds.
  *  - ghost:     an outlined CTA for dark/photographic backgrounds.
  *  - inverse:   a solid cream CTA for dark backgrounds.
- *  - accent:    the brand's warmest moment of colour (burnt orange) —
+ *  - accent:    the brand's warmest moment of colour (terracotta) —
  *               the hero's main CTA and the closing CTA section only,
  *               so it still reads as an accent.
  */
 const variants: Record<string, string> = {
   primary:
-    "bg-clay-600 text-cream-50 hover:bg-clay-700 shadow-soft hover:shadow-glow border border-transparent",
+    "bg-wine-600 text-cream-50 hover:bg-wine-700 shadow-soft hover:shadow-glow border border-transparent",
   secondary:
     "bg-transparent text-ink-800 border border-ink-800/30 hover:border-ink-800 hover:bg-ink-800/5",
   ghost:

@@ -20,10 +20,10 @@ export function WhyChoose() {
         {/* Phones: the Sanjivini lotus and the title share one line. */}
         <RevealOnScroll className="md:hidden">
           <div className="flex flex-col items-center gap-2">
-            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-clay-500">Our Approach</span>
+            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-saffron-600">Our Approach</span>
             <div className="flex items-center justify-center gap-2.5">
               <LotusMotif className="h-7 w-10 shrink-0 text-clay-500" />
-              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-ink-900 min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
+              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-wine-800 min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
                 Why Choose Sanjivini?
               </h2>
             </div>

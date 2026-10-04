@@ -14,12 +14,12 @@ export function About() {
       <div className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
         <div data-thread-content className="mx-auto mb-12 flex max-w-2xl flex-col items-center gap-4 text-center sm:mb-16">
           <RevealOnScroll>
-            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-clay-500 sm:text-sm">
+            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-saffron-600 sm:text-sm">
               About Sanjivini
             </span>
           </RevealOnScroll>
           <RevealOnScroll delay={0.08}>
-            <h2 className="text-balance font-display text-3xl font-semibold text-ink-900 sm:text-4xl md:text-5xl">
+            <h2 className="text-balance font-display text-3xl font-semibold text-wine-800 sm:text-4xl md:text-5xl">
               Meet Your Holistic Therapist
             </h2>
           </RevealOnScroll>

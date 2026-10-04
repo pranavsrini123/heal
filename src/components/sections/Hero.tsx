@@ -22,7 +22,7 @@ export function Hero() {
     <section id="home" className="relative overflow-hidden bg-ink-900" aria-label="Introduction">
       <div className="absolute inset-0 bg-ink-radial" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl lg:min-h-[100svh] items-center gap-10 px-5 pb-14 pt-24 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-32">
+      <div className="relative z-10 mx-auto grid min-h-viewport max-w-7xl items-center gap-10 px-5 pb-14 pt-24 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-32">
         {/* Text */}
         <div data-thread-content className="lg:col-span-7">
           <motion.span

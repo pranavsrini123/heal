@@ -10,7 +10,7 @@ import { whatsappMessages } from "@/config/whatsapp";
  */
 export function CtaSection() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-ink-radial py-20 sm:py-32" aria-label="Begin your journey">
+    <section id="contact" className="relative overflow-hidden bg-ink-radial py-14 sm:py-32" aria-label="Begin your journey">
       <img
         src={images.textures.darkBotanical}
         alt=""
@@ -21,7 +21,7 @@ export function CtaSection() {
       <div className="absolute inset-0 bg-ink-950/75" aria-hidden="true" />
 
 
-      <div className="relative z-[2] mx-auto flex max-w-3xl flex-col items-center gap-5 px-6 text-center sm:gap-6 sm:px-8">
+      <div className="relative z-[2] mx-auto flex max-w-3xl flex-col items-center gap-4 px-6 text-center sm:gap-6 sm:px-8">
         <RevealOnScroll>
           <h2 className="text-balance font-display text-[1.9rem] font-semibold leading-[1.15] text-cream-100 min-[375px]:text-[2.1rem] sm:text-5xl md:text-[3.4rem]">
             Begin Your Journey Toward Balance
@@ -32,7 +32,7 @@ export function CtaSection() {
             Take the first step toward a calmer, more balanced wellness journey.
           </p>
         </RevealOnScroll>
-        <RevealOnScroll delay={0.2} className="mt-3 w-full sm:mt-4 sm:w-auto">
+        <RevealOnScroll delay={0.2} className="mt-2 w-full sm:mt-4 sm:w-auto">
           <WhatsAppButton message={whatsappMessages.consultation} variant="accent" className="w-full max-w-[280px] justify-center md:w-auto md:max-w-none">
             Book a Consultation
           </WhatsAppButton>

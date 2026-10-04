@@ -17,7 +17,7 @@ interface LengthTable {
   ys: Float32Array;
 }
 
-const GOLD = "#d27a44"; // clay-400: the thread is the site's warm accent
+const GOLD = "#c48a42"; // between muted gold and terracotta
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 /** Layout rect corrected for a CSS translate (entrance animations). */

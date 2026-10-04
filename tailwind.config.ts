@@ -6,36 +6,47 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warm, restrained palette: calm ivory backgrounds, deep espresso
-        // for type and the dark sections, terracotta/burnt orange as the
-        // primary accent (CTAs, thread, eyebrows, icons) and a muted warm
-        // yellow used sparingly for small highlights on dark grounds.
+        // Luxury-wellness palette, used with restraint:
+        //  - ivory / cream / beige backgrounds (most of the page)
+        //  - ink: espresso / warm charcoal for type and the dark sections
+        //  - wine: deep burgundy for section headings and the primary CTA
+        //  - clay: burnt terracotta for the main "Book a Consultation"
+        //    accent, icons and small highlights
+        //  - saffron: muted gold for section labels, the thread, quote marks
         ink: {
-          50: "#f7f2ee",
-          100: "#ece2da",
-          200: "#d9c7b9",
-          300: "#bfa290",
-          400: "#9c7b67",
-          500: "#7d5d4b",
-          600: "#634636",
-          700: "#4e3529", // body text on cream
-          800: "#3a271e",
-          900: "#2a1c16", // headings, dark sections
-          950: "#1b120e",
+          50: "#f6f1ee",
+          100: "#ebe1dc",
+          200: "#d7c5bd",
+          300: "#bba196",
+          400: "#987b70",
+          500: "#7a5d54",
+          600: "#604740",
+          700: "#4b3531", // body text on cream (warm charcoal)
+          800: "#382524",
+          900: "#28181a", // espresso — headings, dark sections
+          950: "#1b1012",
+        },
+        wine: {
+          400: "#a3404f",
+          500: "#8a2c3c",
+          600: "#722433", // primary CTA on light grounds
+          700: "#5c1d29",
+          800: "#4a1820", // section headings
         },
         clay: {
           200: "#f3cfb4",
-          300: "#e9a97f",
-          400: "#d27a44", // burnt orange — accent CTA
-          500: "#b5592a", // terracotta — eyebrows, icons
-          600: "#95461f", // deep terracotta — primary CTA, small text
-          700: "#77381a",
+          300: "#e3a174",
+          400: "#c96a3a", // burnt terracotta — main accent CTA
+          500: "#ad5428",
+          600: "#8f421f",
+          700: "#73351a",
         },
         saffron: {
-          200: "#f1dca0",
-          300: "#e3bf68", // muted warm yellow — highlights on dark
-          400: "#cfa24a",
-          500: "#a9802f",
+          200: "#f0dba3",
+          300: "#e2bc68", // warm golden yellow — highlights on dark
+          400: "#c99a45", // muted gold — thread, quote marks
+          500: "#a77d2f",
+          600: "#876422", // muted gold for labels on cream (readable)
         },
         cream: {
           50: "#fffcf7",
@@ -56,11 +67,11 @@ export default {
         sans: ["'Inter'", "system-ui", "sans-serif"],
       },
       backgroundImage: {
-        "ink-radial": "radial-gradient(circle at 50% 0%, #4d2f21 0%, #24170f 70%)",
+        "ink-radial": "radial-gradient(circle at 50% 0%, #3b1e22 0%, #24151a 55%, #1f1215 100%)",
       },
       boxShadow: {
         soft: "0 10px 40px -10px rgba(42, 28, 22, 0.15)",
-        glow: "0 0 40px rgba(210, 122, 68, 0.25)",
+        glow: "0 0 40px rgba(201, 106, 58, 0.25)",
       },
       animation: {
         float: "float 8s ease-in-out infinite",

@@ -105,7 +105,7 @@ export function Navbar() {
               rel="noopener noreferrer"
               className={`inline-flex items-center rounded-full px-6 py-2.5 text-sm font-medium tracking-wide transition-all duration-300 ${
                 scrolled
-                  ? "bg-clay-600 text-cream-50 hover:bg-clay-700 shadow-soft"
+                  ? "bg-wine-600 text-cream-50 hover:bg-wine-700 shadow-soft"
                   : "bg-cream-100/10 text-cream-100 border border-cream-100/40 hover:bg-cream-100 hover:text-ink-900 backdrop-blur-sm"
               }`}
             >

@@ -7,7 +7,7 @@ const iconChip = "flex h-11 w-11 items-center justify-center rounded-full border
 export function Footer() {
   return (
     <footer
-      className="relative overflow-hidden bg-ink-950 pb-[calc(1.75rem+env(safe-area-inset-bottom))] pt-12 text-cream-100/80 sm:pb-8 sm:pt-20"
+      className="relative overflow-hidden bg-ink-950 pb-[calc(1.75rem+env(safe-area-inset-bottom))] pt-10 text-cream-100/80 sm:pb-8 sm:pt-20"
       aria-label="Site footer"
     >
       <LotusMotif className="pointer-events-none absolute -bottom-6 -right-6 h-36 w-56 text-cream-100/[0.04]" />
@@ -15,7 +15,7 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         {/* Phones: brand, then contact details and connect icons in one
             compact block. sm+: the original column layout. */}
-        <div className="grid grid-cols-1 gap-8 border-b border-cream-100/10 pb-8 sm:grid-cols-2 sm:gap-10 sm:pb-12 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-12">
+        <div className="grid grid-cols-1 gap-6 border-b border-cream-100/10 pb-7 sm:grid-cols-2 sm:gap-10 sm:pb-12 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-12">
           <div className="flex flex-col gap-3 sm:col-span-2 sm:gap-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
               <LotusMotif className="h-6 w-9 shrink-0 text-saffron-300" />
