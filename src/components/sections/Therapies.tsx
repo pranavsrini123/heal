@@ -14,21 +14,25 @@ export function Therapies() {
   const [selected, setSelected] = useState<Therapy | null>(null);
 
   return (
-    <section id="therapies" className="relative bg-cream-100 pb-12 pt-16 sm:pb-16 sm:pt-28" aria-label="Our therapies">
+    <section id="therapies" className="relative bg-cream-100 pb-10 pt-16 sm:pb-16 sm:pt-28" aria-label="Our therapies">
       <div data-thread-content className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading eyebrow="Our Therapies" title="Explore Our Therapies" />
+        <SectionHeading
+          eyebrow="Our Therapies"
+          title="Explore Our Therapies"
+          subtitle="Personalized approaches for physical, emotional and energetic wellbeing."
+        />
 
-        <div className="mt-9 flex flex-col gap-10 sm:mt-14 sm:gap-16">
+        <div className="mt-10 flex flex-col gap-10 sm:mt-16 sm:gap-16">
           {categoryOrder.map((category) => {
             const items = therapies.filter((t) => t.category === category);
             return (
               <div key={category}>
                 <div className="mb-5 flex items-end justify-between gap-4 sm:mb-7">
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="text-balance font-display text-2xl font-semibold text-wine-800 sm:text-[1.75rem] md:text-[2.1rem]">
+                    <h3 className="font-display text-xl font-semibold text-wine-800 sm:text-2xl">
                       {therapyCategories[category].title}
                     </h3>
-                    <p className="font-sans text-sm text-ink-700/70 md:text-[0.95rem]">{therapyCategories[category].description}</p>
+                    <p className="font-sans text-sm text-ink-700/70">{therapyCategories[category].description}</p>
                   </div>
                   {/* Swipe hint — only where the row scrolls. */}
                   <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[9.5px] uppercase tracking-widest2 text-clay-600/80 min-[360px]:flex md:text-[11px] xl:hidden" aria-hidden="true">

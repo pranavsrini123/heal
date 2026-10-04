@@ -75,7 +75,7 @@ export function Navbar() {
               }`}
             />
             <span
-              className={`whitespace-nowrap font-display text-[1.05rem] min-[360px]:text-lg sm:text-xl md:text-[1.375rem] lg:whitespace-normal font-semibold tracking-wide transition-colors duration-500 ${
+              className={`whitespace-nowrap font-display text-[1.05rem] min-[360px]:text-lg sm:text-xl lg:whitespace-normal font-semibold tracking-wide transition-colors duration-500 ${
                 scrolled ? "text-ink-900" : "text-cream-100"
               }`}
             >
@@ -83,7 +83,7 @@ export function Navbar() {
             </span>
           </a>
 
-          <ul className="hidden lg:flex items-center gap-6 whitespace-nowrap font-sans text-sm tracking-wide xl:gap-8 xl:text-[0.95rem]">
+          <ul className="hidden lg:flex items-center gap-8 font-sans text-sm tracking-wide">
             {nav.map((item) => (
               <li key={item.href}>
                 <a

@@ -57,13 +57,13 @@ export function TherapyCard({ therapy, index, onSelect, tone = "ivory" }: Therap
       transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       className={`group flex h-full w-full flex-col items-start rounded-xl border p-5 ${t.card} text-left transition-[border-color,transform,box-shadow] duration-500 min-[375px]:p-6 [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-400`}
     >
-      <span className={`flex items-center gap-2.5 font-sans text-[11px] tracking-widest2 md:text-xs ${t.num}`}>
+      <span className={`flex items-center gap-2.5 font-sans text-[11px] tracking-widest2 ${t.num}`}>
         {String(index + 1).padStart(2, "0")}
         <span className={`h-px w-5 ${t.rule}`} aria-hidden="true" />
       </span>
-      <h4 className={`mt-2 font-display text-[1.3rem] sm:mt-4 sm:text-[1.4rem] md:text-[1.55rem] font-bold leading-tight ${t.title}`}>{therapy.name}</h4>
-      <p className={`mt-2 flex-1 font-sans text-sm sm:mt-3 md:text-[0.95rem] leading-relaxed ${t.body}`}>{therapy.shortDescription}</p>
-      <span className={`mt-4 inline-flex sm:mt-6 items-center gap-1.5 font-sans text-sm font-medium transition-colors md:text-[0.95rem] ${t.cta}`}>
+      <h4 className={`mt-2 font-display text-[1.3rem] sm:mt-4 sm:text-[1.4rem] font-bold leading-tight ${t.title}`}>{therapy.name}</h4>
+      <p className={`mt-2 flex-1 font-sans text-sm sm:mt-3 leading-relaxed ${t.body}`}>{therapy.shortDescription}</p>
+      <span className={`mt-4 inline-flex sm:mt-6 items-center gap-1.5 font-sans text-sm font-medium transition-colors ${t.cta}`}>
         Explore
         <ArrowUpRight
           size={15}
