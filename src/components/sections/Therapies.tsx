@@ -6,9 +6,9 @@ import { TherapyModal } from "./TherapyModal";
 
 const categoryOrder: TherapyCategory[] = ["physical", "mental"];
 
-// One rhythm for both rows: ivory, soft wine blush, ivory with a burgundy
-// edge, a deep burgundy feature card, ivory.
-const RHYTHM: CardTone[] = ["ivory", "blush", "outlined", "deep", "ivory"];
+// Both rows: cream, burgundy, cream, burgundy, cream — exactly two
+// burgundy cards per category.
+const RHYTHM: CardTone[] = ["ivory", "deep", "ivory", "deep", "ivory"];
 
 export function Therapies() {
   const [selected, setSelected] = useState<Therapy | null>(null);

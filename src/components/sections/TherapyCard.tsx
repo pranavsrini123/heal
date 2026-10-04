@@ -11,10 +11,10 @@ interface TherapyCardProps {
   tone?: CardTone;
 }
 
-export type CardTone = "ivory" | "blush" | "outlined" | "deep";
+export type CardTone = "ivory" | "deep";
 
-// Ivory and blush cards use dark type; the deep burgundy feature card
-// reverses to warm ivory type with gold details.
+// Ivory cards use dark type; the deep burgundy cards reverse to warm
+// ivory type with muted-gold details.
 const TONE: Record<CardTone, { card: string; title: string; body: string; num: string; rule: string; cta: string }> = {
   ivory: {
     card: "border-ink-900/10 bg-cream-50 hover:border-clay-400/50",
@@ -24,24 +24,8 @@ const TONE: Record<CardTone, { card: string; title: string; body: string; num: s
     rule: "bg-saffron-400/70",
     cta: "text-wine-600 group-hover:text-clay-600",
   },
-  blush: {
-    card: "border-wine-200/70 bg-wine-50 hover:border-wine-400/40",
-    title: "text-wine-800",
-    body: "text-ink-700/85",
-    num: "text-clay-600",
-    rule: "bg-saffron-400/70",
-    cta: "text-wine-600 group-hover:text-clay-600",
-  },
-  outlined: {
-    card: "border-wine-600/40 bg-cream-50 hover:border-wine-600/70",
-    title: "text-wine-800",
-    body: "text-ink-700/80",
-    num: "text-clay-500",
-    rule: "bg-saffron-400/70",
-    cta: "text-wine-600 group-hover:text-clay-600",
-  },
   deep: {
-    card: "border-wine-700 bg-wine-700 hover:border-saffron-300/60",
+    card: "border-wine-800/70 bg-wine-700 hover:border-saffron-300/60",
     title: "text-cream-50",
     body: "text-cream-100/80",
     num: "text-saffron-300",
