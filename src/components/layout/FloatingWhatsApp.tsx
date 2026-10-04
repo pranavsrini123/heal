@@ -22,7 +22,7 @@ export function FloatingWhatsApp() {
           bounce or spin. Skipped entirely under reduced motion. */}
       {!prefersReducedMotion && (
         <motion.span
-          className="absolute inset-0 rounded-full border border-gold-300/60"
+          className="absolute inset-0 rounded-full border border-saffron-300/60"
           animate={{ scale: [1, 1.35, 1], opacity: [0.5, 0, 0.5] }}
           transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
           aria-hidden="true"
@@ -36,7 +36,7 @@ export function FloatingWhatsApp() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 8 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-full bg-forest-900 px-3.5 py-1.5 font-sans text-xs text-cream-100 shadow-soft"
+            className="absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-full bg-ink-900 px-3.5 py-1.5 font-sans text-xs text-cream-100 shadow-soft"
             role="tooltip"
           >
             Chat with us
@@ -56,7 +56,7 @@ export function FloatingWhatsApp() {
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.96 }}
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
-        className="relative flex h-[52px] w-[52px] items-center sm:h-14 sm:w-14 justify-center rounded-full bg-forest-800 text-cream-100 shadow-soft hover:shadow-glow hover:bg-forest-900 transition-colors duration-300"
+        className="relative flex h-[52px] w-[52px] items-center sm:h-14 sm:w-14 justify-center rounded-full bg-ink-800 text-cream-100 shadow-soft hover:shadow-glow hover:bg-ink-900 transition-colors duration-300"
       >
         <WhatsAppGlyph size={24} />
       </motion.a>

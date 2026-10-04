@@ -6,44 +6,43 @@ export default {
   theme: {
     extend: {
       colors: {
-        forest: {
-          50: "#f2f6f2",
-          100: "#e0eade",
-          200: "#c2d5bf",
-          300: "#9bba96",
-          400: "#719a6c",
-          500: "#527d4d",
-          600: "#3e633a",
-          700: "#334f31",
-          800: "#1f3320", // deep forest green
-          900: "#152418", // near-black forest
-          950: "#0c150e",
+        // Warm, restrained palette: calm ivory backgrounds, deep espresso
+        // for type and the dark sections, terracotta/burnt orange as the
+        // primary accent (CTAs, thread, eyebrows, icons) and a muted warm
+        // yellow used sparingly for small highlights on dark grounds.
+        ink: {
+          50: "#f7f2ee",
+          100: "#ece2da",
+          200: "#d9c7b9",
+          300: "#bfa290",
+          400: "#9c7b67",
+          500: "#7d5d4b",
+          600: "#634636",
+          700: "#4e3529", // body text on cream
+          800: "#3a271e",
+          900: "#2a1c16", // headings, dark sections
+          950: "#1b120e",
         },
-        sage: {
-          50: "#f5f7f2",
-          100: "#e7ece0",
-          200: "#d1dcc3",
-          300: "#b3c49e",
-          400: "#96af7e",
-          500: "#7d9863",
-          600: "#647a4e",
-          700: "#4f5f3f",
-          800: "#404c35",
-          900: "#37402e",
+        clay: {
+          200: "#f3cfb4",
+          300: "#e9a97f",
+          400: "#d27a44", // burnt orange — accent CTA
+          500: "#b5592a", // terracotta — eyebrows, icons
+          600: "#95461f", // deep terracotta — primary CTA, small text
+          700: "#77381a",
+        },
+        saffron: {
+          200: "#f1dca0",
+          300: "#e3bf68", // muted warm yellow — highlights on dark
+          400: "#cfa24a",
+          500: "#a9802f",
         },
         cream: {
-          50: "#fefdfb",
-          100: "#fbf7ef", // warm ivory
-          200: "#f6efdd",
-          300: "#efe3c6",
-          400: "#e5d1a2",
-        },
-        gold: {
-          200: "#ecd9a8",
-          300: "#ddc07e",
-          400: "#c9a24e", // subtle premium gold
-          500: "#af8a3c",
-          600: "#8c6d2f",
+          50: "#fffcf7",
+          100: "#faf5ec", // warm ivory
+          200: "#f3eadb",
+          300: "#eadbc2",
+          400: "#dcc6a2",
         },
       },
       fontFamily: {
@@ -57,12 +56,11 @@ export default {
         sans: ["'Inter'", "system-ui", "sans-serif"],
       },
       backgroundImage: {
-        "gold-gradient": "linear-gradient(120deg, #c9a24e 0%, #ecd9a8 50%, #af8a3c 100%)",
-        "forest-radial": "radial-gradient(circle at 50% 0%, #334f31 0%, #152418 70%)",
+        "ink-radial": "radial-gradient(circle at 50% 0%, #4d2f21 0%, #24170f 70%)",
       },
       boxShadow: {
-        soft: "0 10px 40px -10px rgba(21, 36, 24, 0.15)",
-        glow: "0 0 40px rgba(201, 162, 78, 0.25)",
+        soft: "0 10px 40px -10px rgba(42, 28, 22, 0.15)",
+        glow: "0 0 40px rgba(210, 122, 68, 0.25)",
       },
       animation: {
         float: "float 8s ease-in-out infinite",

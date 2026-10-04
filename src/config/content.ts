@@ -252,7 +252,7 @@ export const contact = {
   email: "aanithaaajakkatiidivinesoul@gmail.com",
   // Not supplied yet — replace before launch.
   whatsapp: "PLACEHOLDER — add WhatsApp link",
-  instagram: "PLACEHOLDER — add Instagram handle",
+  instagram: "https://www.instagram.com/aaj.780?stkn=MWYzbnN5dnBiMmRhdQ==", // @aaj.780
   address: "PLACEHOLDER — add location / address",
 };
 

@@ -30,8 +30,8 @@ body {
 }
 
 ::selection {
-  background-color: #c9a24e;
-  color: #152418;
+  background-color: #e9a97f;
+  color: #1b120e;
 }
 
 /* Subtle grain texture, used as a fixed overlay */
@@ -56,16 +56,16 @@ body {
   font-feature-settings: "liga" 1, "kern" 1;
 }
 
-/* Gold gradient text used for hero / heading highlights */
-.gold-text {
-  background: linear-gradient(120deg, #af8a3c 0%, #ecd9a8 45%, #c9a24e 100%);
+/* Warm terracotta → saffron text used for the hero highlight */
+.warm-text {
+  background: linear-gradient(120deg, #d27a44 0%, #e3bf68 50%, #d27a44 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.gold-text-animated {
+.warm-text-animated {
   animation: shimmer 4s linear infinite;
 }
 
@@ -74,12 +74,12 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #fbf7ef;
+  background: #faf5ec;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c2d5bf;
+  background: #dcc6a2;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #9bba96;
+  background: #c9ab84;
 }

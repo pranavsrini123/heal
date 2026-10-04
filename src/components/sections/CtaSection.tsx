@@ -10,7 +10,7 @@ import { whatsappMessages } from "@/config/whatsapp";
  */
 export function CtaSection() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-forest-radial py-20 sm:py-32" aria-label="Begin your journey">
+    <section id="contact" className="relative overflow-hidden bg-ink-radial py-20 sm:py-32" aria-label="Begin your journey">
       <img
         src={images.textures.darkBotanical}
         alt=""
@@ -18,7 +18,7 @@ export function CtaSection() {
         aria-hidden="true"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-forest-950/75" aria-hidden="true" />
+      <div className="absolute inset-0 bg-ink-950/75" aria-hidden="true" />
 
 
       <div className="relative z-[2] mx-auto flex max-w-3xl flex-col items-center gap-5 px-6 text-center sm:gap-6 sm:px-8">
@@ -33,7 +33,7 @@ export function CtaSection() {
           </p>
         </RevealOnScroll>
         <RevealOnScroll delay={0.2} className="mt-3 w-full sm:mt-4 sm:w-auto">
-          <WhatsAppButton message={whatsappMessages.consultation} variant="gold" className="w-full max-w-[280px] justify-center md:w-auto md:max-w-none">
+          <WhatsAppButton message={whatsappMessages.consultation} variant="accent" className="w-full max-w-[280px] justify-center md:w-auto md:max-w-none">
             Book a Consultation
           </WhatsAppButton>
         </RevealOnScroll>

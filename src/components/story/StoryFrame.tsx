@@ -43,7 +43,7 @@ export function StoryFrame({
     <figure
       data-thread={threadAnchor}
       className={`relative aspect-[4/5] w-full overflow-hidden rounded-[3px] ${
-        dark ? "bg-forest-800 ring-1 ring-cream-100/10" : "bg-cream-200 ring-1 ring-forest-900/10"
+        dark ? "bg-ink-800 ring-1 ring-cream-100/10" : "bg-cream-200 ring-1 ring-ink-900/10"
       } ${className}`}
     >
       {showImage ? (
@@ -61,14 +61,14 @@ export function StoryFrame({
           className={`absolute left-0 flex max-w-[60%] flex-col gap-1.5 p-4 min-[400px]:p-6 sm:p-8 ${captionPosition === "top" ? "top-0" : "bottom-0"}`}
         >
           <span
-            className={`font-sans text-[10px] uppercase tracking-widest2 ${dark ? "text-cream-100/45" : "text-forest-700/55"}`}
+            className={`font-sans text-[10px] uppercase tracking-widest2 ${dark ? "text-cream-100/45" : "text-ink-700/55"}`}
           >
             Image to be added
           </span>
-          <span className={`font-display text-lg italic sm:text-xl ${dark ? "text-cream-100/80" : "text-forest-800/80"}`}>
+          <span className={`font-display text-lg italic sm:text-xl ${dark ? "text-cream-100/80" : "text-ink-800/80"}`}>
             {placeholderTitle}
           </span>
-          <span className={`hidden font-sans text-xs min-[400px]:block ${dark ? "text-cream-100/40" : "text-forest-700/50"}`}>
+          <span className={`hidden font-sans text-xs min-[400px]:block ${dark ? "text-cream-100/40" : "text-ink-700/50"}`}>
             {placeholderNote}
           </span>
         </figcaption>

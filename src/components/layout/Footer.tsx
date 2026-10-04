@@ -7,7 +7,7 @@ const iconChip = "flex h-11 w-11 items-center justify-center rounded-full border
 export function Footer() {
   return (
     <footer
-      className="relative overflow-hidden bg-forest-950 pb-[calc(1.75rem+env(safe-area-inset-bottom))] pt-12 text-cream-100/80 sm:pb-8 sm:pt-20"
+      className="relative overflow-hidden bg-ink-950 pb-[calc(1.75rem+env(safe-area-inset-bottom))] pt-12 text-cream-100/80 sm:pb-8 sm:pt-20"
       aria-label="Site footer"
     >
       <LotusMotif className="pointer-events-none absolute -bottom-6 -right-6 h-36 w-56 text-cream-100/[0.04]" />
@@ -18,14 +18,14 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 border-b border-cream-100/10 pb-8 sm:grid-cols-2 sm:gap-10 sm:pb-12 lg:grid-cols-[1.6fr_1fr_1fr] lg:gap-12">
           <div className="flex flex-col gap-3 sm:col-span-2 sm:gap-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
-              <LotusMotif className="h-6 w-9 shrink-0 text-gold-300" />
+              <LotusMotif className="h-6 w-9 shrink-0 text-saffron-300" />
               <span className="font-display text-xl font-semibold text-cream-100">{brand.name}</span>
             </div>
             <p className="max-w-xs font-sans text-sm leading-relaxed text-cream-100/60">{brand.tagline}</p>
           </div>
 
           <div>
-            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-gold-300 sm:mb-4">Contact</h4>
+            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-saffron-300 sm:mb-4">Contact</h4>
             <ul className="flex flex-col gap-1 font-sans text-sm sm:gap-2.5">
               <li>
                 <a
@@ -50,26 +50,28 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-gold-300 sm:mb-4">Connect</h4>
+            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-saffron-300 sm:mb-4">Connect</h4>
             <div className="flex items-center gap-3">
               <a
                 href={`tel:${contact.phone}`}
                 aria-label="Call"
-                className={`${iconChip} transition-colors hover:border-gold-300 hover:text-gold-300`}
+                className={`${iconChip} transition-colors hover:border-saffron-300 hover:text-saffron-300`}
               >
                 <Phone size={16} />
               </a>
-              <span
-                aria-label="Instagram — link not yet provided"
-                title="Instagram link not yet provided"
-                className={`${iconChip} opacity-50`}
+              <a
+                href={contact.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram — @aaj.780"
+                className={`${iconChip} transition-colors hover:border-saffron-300 hover:text-saffron-300`}
               >
                 <Instagram size={16} />
-              </span>
+              </a>
               <a
                 href={`mailto:${contact.email}`}
                 aria-label="Email"
-                className={`${iconChip} transition-colors hover:border-gold-300 hover:text-gold-300`}
+                className={`${iconChip} transition-colors hover:border-saffron-300 hover:text-saffron-300`}
               >
                 <Mail size={16} />
               </a>

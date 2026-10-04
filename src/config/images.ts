@@ -34,13 +34,13 @@ export const images = {
       position: "50% 30%",
     } as StoryImage,
     // End (Meet Your Holistic Therapist): Anita A Jakati.
-    // The photo file lives at /public/images/anita.jpg (served as-is by
-    // Vite/Vercel). Until that file is added the frame shows plain, with no
-    // broken-image icon and no placeholder text.
+    // Anita's own photograph: /public/images/anita.jpg (a real project
+    // asset, served as-is by Vite locally and by Vercel in production).
+    // The crop keeps her face in the upper part of the 4:5 frame.
     therapist: {
       src: "/images/anita.jpg",
       alt: "Anita A Jakati, Certified Holistic Therapist",
-      position: "50% 25%",
+      position: "50% 12%",
     } as StoryImage,
   },
 

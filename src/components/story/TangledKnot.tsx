@@ -56,7 +56,7 @@ export function TangledKnot({ className = "" }: { className?: string }) {
     >
       <motion.path
         d={d}
-        stroke="#c9a24e"
+        stroke="#d27a44"
         strokeWidth={1.4}
         strokeLinecap="round"
         strokeLinejoin="round"

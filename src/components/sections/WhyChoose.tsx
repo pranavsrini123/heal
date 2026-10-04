@@ -20,10 +20,10 @@ export function WhyChoose() {
         {/* Phones: the Sanjivini lotus and the title share one line. */}
         <RevealOnScroll className="md:hidden">
           <div className="flex flex-col items-center gap-2">
-            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-gold-500">Our Approach</span>
+            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-clay-500">Our Approach</span>
             <div className="flex items-center justify-center gap-2.5">
-              <LotusMotif className="h-7 w-10 shrink-0 text-gold-500" />
-              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-forest-900 min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
+              <LotusMotif className="h-7 w-10 shrink-0 text-clay-500" />
+              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-ink-900 min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
                 Why Choose Sanjivini?
               </h2>
             </div>
@@ -41,19 +41,19 @@ export function WhyChoose() {
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="flex h-full flex-row items-start gap-4 rounded-3xl bg-cream-50 p-5 shadow-sm sm:flex-col sm:p-6 hover:shadow-soft border border-forest-900/5 hover:border-gold-300/40 transition-shadow duration-300"
+                  className="flex h-full flex-row items-start gap-4 rounded-3xl bg-cream-50 p-5 shadow-sm sm:flex-col sm:p-6 hover:shadow-soft border border-ink-900/5 hover:border-saffron-300/40 transition-shadow duration-300"
                 >
                   {/* Icon rendered as a gold line-mark on a quiet forest
                       chip — gold as an accent stroke, not a fill, keeping
                       the color rare and deliberate rather than decorative. */}
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-400/50 text-gold-500">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-clay-400/50 text-clay-500">
                     <Icon size={19} strokeWidth={1.5} />
                   </span>
                   <div>
-                    <h3 className="font-display text-[1.1rem] sm:text-lg font-semibold text-forest-900 leading-snug">
+                    <h3 className="font-display text-[1.1rem] sm:text-lg font-semibold text-ink-900 leading-snug">
                       {item.title}
                     </h3>
-                    <p className="mt-1.5 font-sans text-sm sm:mt-2 text-forest-700/75 leading-relaxed">{item.description}</p>
+                    <p className="mt-1.5 font-sans text-sm sm:mt-2 text-ink-700/75 leading-relaxed">{item.description}</p>
                   </div>
                 </motion.div>
               </RevealOnScroll>

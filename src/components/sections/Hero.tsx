@@ -19,15 +19,15 @@ export function Hero() {
   });
 
   return (
-    <section id="home" className="relative overflow-hidden bg-forest-900" aria-label="Introduction">
-      <div className="absolute inset-0 bg-forest-radial" aria-hidden="true" />
+    <section id="home" className="relative overflow-hidden bg-ink-900" aria-label="Introduction">
+      <div className="absolute inset-0 bg-ink-radial" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto grid max-w-7xl lg:min-h-[100svh] items-center gap-10 px-5 pb-14 pt-24 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-32">
         {/* Text */}
         <div data-thread-content className="lg:col-span-7">
           <motion.span
             {...rise(0.2)}
-            className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-gold-300 min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm"
+            className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-saffron-300 min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm"
           >
             Holistic Healing &amp; Wellness
           </motion.span>
@@ -43,7 +43,7 @@ export function Hero() {
           >
             <span className="block">Healing Mind.</span>
             <span className="block">
-              Body. <span className="gold-text">Soul.</span>
+              Body. <span className="warm-text">Soul.</span>
             </span>
           </motion.h1>
 
@@ -66,7 +66,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div {...rise(1)} className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-center sm:gap-4">
-            <WhatsAppButton message={whatsappMessages.consultation} variant="gold" className="w-full justify-center sm:w-auto">
+            <WhatsAppButton message={whatsappMessages.consultation} variant="accent" className="w-full justify-center sm:w-auto">
               Book a Consultation
             </WhatsAppButton>
             <Button href="#therapies" variant="ghost" className="w-full justify-center sm:w-auto">

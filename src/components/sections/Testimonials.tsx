@@ -26,12 +26,12 @@ export function Testimonials() {
           {testimonials.map((t, i) => (
             <li key={t.id}>
               <RevealOnScroll delay={i * 0.08} className="h-full">
-                <figure className="flex h-full flex-col items-center gap-6 rounded-3xl border border-forest-900/5 bg-cream-50 px-9 py-11 text-center shadow-sm">
-                  <Quote className="shrink-0 text-gold-400" size={30} aria-hidden="true" />
-                  <blockquote className="flex-1 font-display text-xl leading-relaxed text-forest-900">
+                <figure className="flex h-full flex-col items-center gap-6 rounded-3xl border border-ink-900/5 bg-cream-50 px-9 py-11 text-center shadow-sm">
+                  <Quote className="shrink-0 text-clay-400" size={30} aria-hidden="true" />
+                  <blockquote className="flex-1 font-display text-xl leading-relaxed text-ink-900">
                     {`"${t.quote}"`}
                   </blockquote>
-                  <figcaption className="font-sans text-sm uppercase tracking-widest2 text-gold-600">{t.name}</figcaption>
+                  <figcaption className="font-sans text-sm uppercase tracking-widest2 text-clay-600">{t.name}</figcaption>
                 </figure>
               </RevealOnScroll>
             </li>
@@ -49,17 +49,17 @@ export function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -direction * 40 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full text-center flex flex-col items-center gap-5 sm:gap-6 rounded-3xl bg-cream-50 border border-forest-900/5 shadow-sm px-6 sm:px-12 py-8 sm:py-12"
+                className="w-full text-center flex flex-col items-center gap-5 sm:gap-6 rounded-3xl bg-cream-50 border border-ink-900/5 shadow-sm px-6 sm:px-12 py-8 sm:py-12"
               >
-                <Quote className="text-gold-400" size={30} aria-hidden="true" />
+                <Quote className="text-clay-400" size={30} aria-hidden="true" />
                 <p
                   className={`font-display ${current.isPlaceholder ? "text-[1.2rem]" : "text-[1.1rem]"} sm:text-2xl leading-relaxed ${
-                    current.isPlaceholder ? "italic text-forest-500" : "text-forest-900"
+                    current.isPlaceholder ? "italic text-ink-500" : "text-ink-900"
                   }`}
                 >
                   {current.isPlaceholder ? `"${current.quote}"` : `"${current.quote}"`}
                 </p>
-                <span className="font-sans text-xs sm:text-sm uppercase tracking-widest2 text-gold-600">
+                <span className="font-sans text-xs sm:text-sm uppercase tracking-widest2 text-clay-600">
                   {current.name}
                 </span>
               </motion.div>
@@ -70,7 +70,7 @@ export function Testimonials() {
             <button
               type="button"
               onClick={() => go(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-forest-900/15 text-forest-800 hover:bg-forest-800 hover:text-cream-100 transition-colors"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-900/15 text-ink-800 hover:bg-ink-800 hover:text-cream-100 transition-colors"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={19} />
@@ -92,7 +92,7 @@ export function Testimonials() {
                 >
                   <span
                     className={`block h-2 rounded-full transition-all duration-300 ${
-                      i === index ? "w-6 bg-gold-400" : "w-2 bg-forest-900/15 group-hover:bg-forest-900/30"
+                      i === index ? "w-6 bg-clay-400" : "w-2 bg-ink-900/15 group-hover:bg-ink-900/30"
                     }`}
                   />
                 </button>
@@ -102,7 +102,7 @@ export function Testimonials() {
             <button
               type="button"
               onClick={() => go(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-forest-900/15 text-forest-800 hover:bg-forest-800 hover:text-cream-100 transition-colors"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-900/15 text-ink-800 hover:bg-ink-800 hover:text-cream-100 transition-colors"
               aria-label="Next testimonial"
             >
               <ChevronRight size={19} />

@@ -40,7 +40,7 @@ export function TherapyModal({ therapy, onClose }: TherapyModalProps) {
           aria-labelledby="therapy-modal-title"
         >
           <motion.div
-            className="absolute inset-0 bg-forest-950/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
           />
@@ -58,11 +58,11 @@ export function TherapyModal({ therapy, onClose }: TherapyModalProps) {
                 alt=""
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/30 to-forest-950/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/30 to-ink-950/10" />
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-cream-50/90 text-forest-900 sm:right-4 sm:top-4 hover:bg-cream-50 transition-colors"
+                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-cream-50/90 text-ink-900 sm:right-4 sm:top-4 hover:bg-cream-50 transition-colors"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -73,21 +73,21 @@ export function TherapyModal({ therapy, onClose }: TherapyModalProps) {
             </div>
 
             <div className="p-5 min-[375px]:p-6 sm:p-8">
-              <h3 id="therapy-modal-title" className="font-display text-[1.6rem] leading-tight sm:text-3xl font-bold text-forest-900">
+              <h3 id="therapy-modal-title" className="font-display text-[1.6rem] leading-tight sm:text-3xl font-bold text-ink-900">
                 {therapy.name}
               </h3>
-              <p className="mt-3 sm:mt-4 font-sans text-[0.95rem] sm:text-base text-forest-700/85 leading-relaxed">
+              <p className="mt-3 sm:mt-4 font-sans text-[0.95rem] sm:text-base text-ink-700/85 leading-relaxed">
                 {therapy.details}
               </p>
 
               <div className="mt-6">
-                <h4 className="font-sans text-xs uppercase tracking-widest2 text-gold-600 font-medium mb-3">
+                <h4 className="font-sans text-xs uppercase tracking-widest2 text-clay-600 font-medium mb-3">
                   What a session involves
                 </h4>
                 <ul className="flex flex-col gap-2.5">
                   {therapy.sessionInvolves.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 font-sans text-sm text-forest-800">
-                      <Check size={16} className="mt-0.5 shrink-0 text-gold-500" aria-hidden="true" />
+                    <li key={item} className="flex items-start gap-2.5 font-sans text-sm text-ink-800">
+                      <Check size={16} className="mt-0.5 shrink-0 text-clay-500" aria-hidden="true" />
                       <span>{item}</span>
                     </li>
                   ))}

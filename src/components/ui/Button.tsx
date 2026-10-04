@@ -13,7 +13,7 @@ type NativeAnchorProps = Omit<
 
 interface ButtonProps extends NativeAnchorProps {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost" | "gold" | "inverse";
+  variant?: "primary" | "secondary" | "ghost" | "accent" | "inverse";
   showArrow?: boolean;
 }
 
@@ -21,28 +21,25 @@ interface ButtonProps extends NativeAnchorProps {
  * Five variants, each with a single, fixed job — no per-usage color
  * overrides anywhere else in the codebase:
  *
- *  - primary:   the default CTA on light backgrounds (deep forest).
+ *  - primary:   the default CTA on light backgrounds (deep terracotta).
  *  - secondary: a quieter alternative on light backgrounds.
  *  - ghost:     an outlined CTA for dark/photographic backgrounds.
- *  - inverse:   a solid CTA for dark backgrounds (cream on forest) —
- *               used where a section needs a confident but *not*
- *               gold-emphasis action (Online Consultation, Contact).
- *  - gold:      the brand's single moment of color emphasis. Reserved
- *               for exactly two places on the site — the hero's main
- *               CTA and the closing CTA section — so it still reads as
- *               an accent rather than a default button color.
+ *  - inverse:   a solid cream CTA for dark backgrounds.
+ *  - accent:    the brand's warmest moment of colour (burnt orange) —
+ *               the hero's main CTA and the closing CTA section only,
+ *               so it still reads as an accent.
  */
 const variants: Record<string, string> = {
   primary:
-    "bg-forest-800 text-cream-100 hover:bg-forest-900 shadow-soft hover:shadow-glow border border-transparent",
+    "bg-clay-600 text-cream-50 hover:bg-clay-700 shadow-soft hover:shadow-glow border border-transparent",
   secondary:
-    "bg-transparent text-forest-800 border border-forest-800/30 hover:border-forest-800 hover:bg-forest-800/5",
+    "bg-transparent text-ink-800 border border-ink-800/30 hover:border-ink-800 hover:bg-ink-800/5",
   ghost:
-    "bg-transparent text-cream-100 border border-cream-100/40 hover:border-gold-300 hover:text-gold-300",
+    "bg-transparent text-cream-100 border border-cream-100/40 hover:border-saffron-300 hover:text-saffron-300",
   inverse:
-    "bg-cream-100 text-forest-900 hover:bg-cream-50 shadow-soft border border-transparent",
-  gold:
-    "bg-gold-400 text-forest-950 hover:bg-gold-300 shadow-soft hover:shadow-glow border border-transparent",
+    "bg-cream-100 text-ink-900 hover:bg-cream-50 shadow-soft border border-transparent",
+  accent:
+    "bg-clay-400 text-ink-950 hover:bg-clay-300 shadow-soft hover:shadow-glow border border-transparent",
 };
 
 /**
