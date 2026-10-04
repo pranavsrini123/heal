@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { images } from "@/config/images";
-import { practitioner } from "@/config/content";
+import { Mail } from "lucide-react";
+import { contact, practitioner } from "@/config/content";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { StoryFrame } from "@/components/story/StoryFrame";
 
@@ -74,6 +75,19 @@ export function About() {
                 balanced rhythm to life, Anita works alongside you to build a gentle path forward —
                 at your pace, on your terms.
               </p>
+            </RevealOnScroll>
+            <RevealOnScroll direction="left" delay={0.3}>
+              <a
+                href={`mailto:${contact.email}`}
+                className="inline-flex min-h-[44px] max-w-full items-center gap-2.5 font-sans text-sm text-forest-800 transition-colors hover:text-gold-600 sm:text-base"
+              >
+                <Mail size={17} strokeWidth={1.6} className="shrink-0 text-gold-500" aria-hidden="true" />
+                <span className="underline decoration-gold-400/50 underline-offset-4 [overflow-wrap:anywhere]">
+                  {/* Wrap (if ever needed) at the "@", never mid-word. */}
+                  {contact.email.split("@")[0]}
+                  <wbr />@{contact.email.split("@")[1]}
+                </span>
+              </a>
             </RevealOnScroll>
           </div>
         </div>

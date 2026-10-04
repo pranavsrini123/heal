@@ -35,7 +35,17 @@ export function Footer() {
                   {contact.phoneDisplay}
                 </a>
               </li>
-              <li className="break-words italic text-cream-100/50">{contact.email}</li>
+              <li>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="inline-flex min-h-[44px] items-center [overflow-wrap:anywhere] transition-colors hover:text-cream-100 lg:min-h-0"
+                >
+                  <span>
+                    {contact.email.split("@")[0]}
+                    <wbr />@{contact.email.split("@")[1]}
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -56,13 +66,13 @@ export function Footer() {
               >
                 <Instagram size={16} />
               </span>
-              <span
-                aria-label="Email — address not yet provided"
-                title="Email address not yet provided"
-                className={`${iconChip} opacity-50`}
+              <a
+                href={`mailto:${contact.email}`}
+                aria-label="Email"
+                className={`${iconChip} transition-colors hover:border-gold-300 hover:text-gold-300`}
               >
                 <Mail size={16} />
-              </span>
+              </a>
             </div>
           </div>
         </div>

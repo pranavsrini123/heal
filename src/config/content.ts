@@ -249,8 +249,8 @@ export const contact = {
   phoneDisplay: "7816832466",
   // Used for tap-to-call links (tel:+917816832466).
   phone: "+917816832466",
-  // Not supplied in the original brief — replace before launch.
-  email: "PLACEHOLDER — add email address",
+  email: "aanithaaajakkatiidivinesoul@gmail.com",
+  // Not supplied yet — replace before launch.
   whatsapp: "PLACEHOLDER — add WhatsApp link",
   instagram: "PLACEHOLDER — add Instagram handle",
   address: "PLACEHOLDER — add location / address",
