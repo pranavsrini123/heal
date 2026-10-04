@@ -15,7 +15,7 @@ const iconMap: Record<(typeof whyChoose)[number]["icon"], React.ComponentType<Lu
 
 export function WhyChoose() {
   return (
-    <section id="why-sanjivini" className="relative bg-cream-100 pb-14 pt-8 sm:pb-24 sm:pt-16" aria-label="Why choose Sanjivini">
+    <section id="why-sanjivini" className="relative bg-cream-100 pb-14 pt-10 sm:pb-24 sm:pt-16" aria-label="Why choose Sanjivini">
       <div data-thread-content className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
         {/* Phones: the Sanjivini lotus and the title share one line. */}
         <RevealOnScroll className="md:hidden">
@@ -51,10 +51,10 @@ export function WhyChoose() {
                     <Icon size={19} strokeWidth={1.5} />
                   </span>
                   <div>
-                    <h3 className={`font-display text-[1.1rem] sm:text-lg font-semibold leading-snug ${deep ? "text-cream-50" : "text-wine-800"}`}>
+                    <h3 className={`font-display text-[1.1rem] sm:text-lg md:text-xl font-semibold leading-snug ${deep ? "text-cream-50" : "text-wine-800"}`}>
                       {item.title}
                     </h3>
-                    <p className={`mt-1.5 font-sans text-sm sm:mt-2 leading-relaxed ${deep ? "text-cream-100/80" : "text-ink-700/80"}`}>{item.description}</p>
+                    <p className={`mt-1.5 font-sans text-sm sm:mt-2 md:text-[0.95rem] leading-relaxed ${deep ? "text-cream-100/80" : "text-ink-700/80"}`}>{item.description}</p>
                   </div>
                 </motion.div>
               </RevealOnScroll>

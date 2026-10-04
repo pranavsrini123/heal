@@ -6,8 +6,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const cardClass =
   "flex w-full flex-col items-center gap-5 rounded-3xl border border-ink-900/5 bg-cream-50 px-6 py-8 text-center shadow-sm sm:gap-6 sm:px-12 sm:py-12";
-const quoteClass = "font-display text-[1.1rem] leading-relaxed text-ink-900 sm:text-2xl lg:text-[1.55rem]";
-const nameClass = "font-sans text-xs uppercase tracking-widest2 text-clay-600 sm:text-sm";
+const quoteClass = "font-display text-[1.1rem] leading-relaxed text-ink-900 sm:text-2xl md:text-[1.65rem] lg:text-[1.7rem]";
+const nameClass = "font-sans text-xs uppercase tracking-widest2 text-clay-600 sm:text-sm md:text-[0.95rem]";
 
 export function Testimonials() {
   const [index, setIndex] = useState(0);

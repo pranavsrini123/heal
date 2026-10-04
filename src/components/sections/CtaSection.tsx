@@ -23,12 +23,12 @@ export function CtaSection() {
 
       <div className="relative z-[2] mx-auto flex max-w-3xl flex-col items-center gap-4 px-6 text-center sm:gap-6 sm:px-8">
         <RevealOnScroll>
-          <h2 className="text-balance font-display text-[1.9rem] font-semibold leading-[1.15] text-cream-100 min-[375px]:text-[2.1rem] sm:text-5xl md:text-[3.4rem]">
+          <h2 className="text-balance font-display text-[1.9rem] font-semibold leading-[1.15] text-cream-100 min-[375px]:text-[2.1rem] sm:text-5xl md:text-[3.75rem]">
             Begin Your Journey Toward Balance
           </h2>
         </RevealOnScroll>
         <RevealOnScroll delay={0.1}>
-          <p className="max-w-[22rem] font-sans text-base leading-relaxed text-cream-100/75 sm:max-w-xl sm:text-lg">
+          <p className="max-w-[22rem] font-sans text-base leading-relaxed text-cream-100/75 sm:max-w-xl sm:text-lg md:text-xl">
             Take the first step toward a calmer, more balanced wellness journey.
           </p>
         </RevealOnScroll>

@@ -19,18 +19,18 @@ export function Footer() {
           <div className="flex flex-col gap-3 sm:col-span-2 sm:gap-4 lg:col-span-1">
             <div className="flex items-center gap-2.5">
               <LotusMotif className="h-6 w-9 shrink-0 text-saffron-300" />
-              <span className="font-display text-xl font-semibold text-cream-100">{brand.name}</span>
+              <span className="font-display text-xl font-semibold text-cream-100 md:text-2xl">{brand.name}</span>
             </div>
-            <p className="max-w-xs font-sans text-sm leading-relaxed text-cream-100/60">{brand.tagline}</p>
+            <p className="max-w-xs font-sans text-sm leading-relaxed text-cream-100/60 md:text-[0.95rem]">{brand.tagline}</p>
           </div>
 
           <div>
-            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-saffron-300 sm:mb-4">Contact</h4>
-            <ul className="flex flex-col gap-1 font-sans text-sm sm:gap-2.5">
+            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-saffron-300 sm:mb-4 md:text-[0.8rem]">Contact</h4>
+            <ul className="flex flex-col gap-1 font-sans text-sm sm:gap-2.5 md:text-[0.95rem]">
               <li>
                 <a
                   href={`tel:${contact.phone}`}
-                  className="-my-1 inline-flex min-h-[44px] items-center text-base text-cream-100/90 transition-colors hover:text-cream-100 sm:-my-3 sm:text-sm sm:text-cream-100/80 lg:my-0 lg:min-h-0"
+                  className="-my-1 inline-flex min-h-[44px] items-center text-base text-cream-100/90 transition-colors hover:text-cream-100 sm:-my-3 sm:text-sm sm:text-cream-100/80 md:text-[0.95rem] lg:my-0 lg:min-h-0"
                 >
                   {contact.phoneDisplay}
                 </a>
@@ -50,7 +50,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-saffron-300 sm:mb-4">Connect</h4>
+            <h4 className="mb-3 font-sans text-xs uppercase tracking-widest2 text-saffron-300 sm:mb-4 md:text-[0.8rem]">Connect</h4>
             <div className="flex items-center gap-3">
               <a
                 href={`tel:${contact.phone}`}
@@ -82,8 +82,8 @@ export function Footer() {
         {/* Right padding on phones keeps the copyright clear of the
             floating WhatsApp button. */}
         <div className="flex flex-col items-start justify-between gap-2 pr-20 pt-6 sm:flex-row sm:items-center sm:gap-4 sm:pt-8 lg:pr-0">
-          <p className="font-display text-sm italic text-cream-100/50">{footerLine}</p>
-          <p className="font-sans text-xs text-cream-100/40">
+          <p className="font-display text-sm italic text-cream-100/50 md:text-base">{footerLine}</p>
+          <p className="font-sans text-xs text-cream-100/40 md:text-[0.8rem]">
             &copy; {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
         </div>

@@ -27,7 +27,7 @@ export function Hero() {
         <div data-thread-content className="lg:col-span-7">
           <motion.span
             {...rise(0.2)}
-            className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-saffron-300 min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm"
+            className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-saffron-300 min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm md:text-[0.95rem]"
           >
             Holistic Healing &amp; Wellness
           </motion.span>
@@ -39,7 +39,7 @@ export function Hero() {
           <motion.h1
             {...rise(0.35)}
             data-thread="start-compact"
-            className="mt-5 font-display text-[2.1rem] font-medium leading-[1.08] text-cream-100 min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:mt-6 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+            className="mt-5 font-display text-[2.1rem] font-medium leading-[1.08] text-cream-100 min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:mt-6 sm:text-6xl md:text-[4.75rem] lg:text-[5.6rem]"
           >
             <span className="block">Healing Mind.</span>
             <span className="block">
@@ -59,7 +59,7 @@ export function Hero() {
 
           <motion.p
             {...rise(0.8)}
-            className="mt-6 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-8 text-cream-100/75 sm:text-lg"
+            className="mt-6 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-8 text-cream-100/75 sm:text-lg md:text-xl"
           >
             Discover a natural approach to wellbeing through personalized holistic therapies designed to restore
             balance, calm and vitality.
@@ -74,7 +74,7 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          <motion.p {...rise(1.2)} className="mt-5 font-sans text-xs tracking-wide text-cream-100/55 sm:mt-6 sm:text-sm">
+          <motion.p {...rise(1.2)} className="mt-5 font-sans text-xs tracking-wide text-cream-100/55 sm:mt-6 sm:text-sm md:text-[0.95rem]">
             Online consultations available
           </motion.p>
         </div>
@@ -101,13 +101,14 @@ export function Hero() {
 
       <motion.a
         href="#therapies"
+        data-thread-avoid
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.8 }}
         className="absolute bottom-7 left-8 z-10 hidden items-center gap-3 text-cream-100/60 transition-colors hover:text-cream-100 lg:flex lg:left-[max(2rem,calc((100%_-_80rem)/2_+_2rem))]"
         aria-label="Scroll to explore"
       >
-        <span className="font-sans text-[10px] uppercase tracking-widest2">Scroll to Explore</span>
+        <span className="font-sans text-[10px] uppercase tracking-widest2 md:text-[11px]">Scroll to Explore</span>
         <motion.span
           animate={prefersReducedMotion ? undefined : { y: [0, 5, 0] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
