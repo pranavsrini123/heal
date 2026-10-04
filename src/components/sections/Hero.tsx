@@ -1,11 +1,8 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { images } from "@/config/images";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 import { whatsappMessages } from "@/config/whatsapp";
-import { StoryFrame } from "@/components/story/StoryFrame";
-import { TangledKnot } from "@/components/story/TangledKnot";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -79,24 +76,16 @@ export function Hero() {
           </motion.p>
         </div>
 
-        {/* The story begins: a mind in tangles (desktop only — smaller
-            screens show the tangle beside the heading instead). */}
+        {/* Desktop: the space where the mind is drawn — a head of a few fine
+            lines whose strands flow down the page (see StoryThread). */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
-          className="mx-auto hidden w-full max-w-sm lg:col-span-5 lg:mr-0 lg:block lg:max-w-[min(100%,calc(72svh*0.8))]"
-        >
-          <StoryFrame
-            image={images.story.tangledMind}
-            tone="dark"
-            threadAnchor="start"
-            placeholderTitle="A mind in tangles"
-            placeholderNote="Opening image — add in src/config/images.ts"
-          >
-            <TangledKnot />
-          </StoryFrame>
-        </motion.div>
+          data-thread="start"
+          aria-hidden="true"
+          className="mx-auto hidden aspect-[4/5] w-full max-w-sm lg:col-span-5 lg:mr-0 lg:block lg:max-w-[min(100%,calc(72svh*0.8))]"
+        />
       </div>
 
       <motion.a
