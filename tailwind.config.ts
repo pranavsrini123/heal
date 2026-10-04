@@ -27,6 +27,8 @@ export default {
           950: "#1b1012",
         },
         wine: {
+          50: "#f7eceb", // soft wine blush — lightly tinted cards
+          200: "#e3c3c3",
           400: "#a3404f",
           500: "#8a2c3c",
           600: "#722433", // primary CTA on light grounds
