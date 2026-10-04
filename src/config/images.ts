@@ -34,8 +34,11 @@ export const images = {
       position: "50% 30%",
     } as StoryImage,
     // End (Meet Your Holistic Therapist): Anita A Jakati.
+    // The photo file lives at /public/images/anita.jpg (served as-is by
+    // Vite/Vercel). Until that file is added the frame shows plain, with no
+    // broken-image icon and no placeholder text.
     therapist: {
-      src: null,
+      src: "/images/anita.jpg",
       alt: "Anita A Jakati, Certified Holistic Therapist",
       position: "50% 25%",
     } as StoryImage,

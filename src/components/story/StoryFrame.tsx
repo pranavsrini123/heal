@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { StoryImage } from "@/config/images";
 
 interface StoryFrameProps {
@@ -14,6 +14,8 @@ interface StoryFrameProps {
   threadAnchor?: "start" | "end";
   /** Where the placeholder caption sits (keep it clear of overlays). */
   captionPosition?: "top" | "bottom";
+  /** Never show the "Image to be added" caption (a plain frame instead). */
+  hidePlaceholder?: boolean;
 }
 
 /**
@@ -30,8 +32,12 @@ export function StoryFrame({
   children,
   threadAnchor,
   captionPosition = "bottom",
+  hidePlaceholder = false,
 }: StoryFrameProps) {
   const dark = tone === "dark";
+  // If the file is missing, fall back to the plain frame — never a broken image.
+  const [failed, setFailed] = useState(false);
+  const showImage = Boolean(image.src) && !failed;
 
   return (
     <figure
@@ -40,15 +46,17 @@ export function StoryFrame({
         dark ? "bg-forest-800 ring-1 ring-cream-100/10" : "bg-cream-200 ring-1 ring-forest-900/10"
       } ${className}`}
     >
-      {image.src ? (
+      {showImage ? (
         <img
-          src={image.src}
+          src={image.src ?? undefined}
           alt={image.alt}
           className="h-full w-full object-cover"
           style={{ objectPosition: image.position }}
           loading="lazy"
+          decoding="async"
+          onError={() => setFailed(true)}
         />
-      ) : (
+      ) : hidePlaceholder ? null : (
         <figcaption
           className={`absolute left-0 flex max-w-[60%] flex-col gap-1.5 p-4 min-[400px]:p-6 sm:p-8 ${captionPosition === "top" ? "top-0" : "bottom-0"}`}
         >
