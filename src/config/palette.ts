@@ -5,45 +5,47 @@
  * the same values are exposed as CSS variables (--color-primary, …) for
  * plain CSS, and the flowing thread reads its colours from here too.
  * Change a colour here and it changes everywhere.
+ *
+ * Palette: Deep Olive #494C00 · Moss #8B8E3C · Porcelain #FDF5EA ·
+ *          Honey #EF9400 · Honeycomb #9E3C00
  */
 export const palette = {
-  primary: "#708A6D", // muted sage green
-  secondary: "#858B35", // earthy olive
-  background: "#F5E3C3", // warm cream
-  accent: "#D96B4B", // muted terracotta / coral
-  light: "#E6D9B8", // soft beige
-  neutral: "#D3D0C6", // warm neutral grey
+  primary: "#8B8E3C", // moss — icons, outlines, the thread
+  secondary: "#494C00", // deep olive — small labels
+  background: "#FDF5EA", // porcelain — the page
+  accent: "#EF9400", // honey — Book a Consultation, highlights
+  light: "#F5E7CF", // porcelain with a touch of honey — light cards
+  neutral: "#E6DCCB", // quiet borders, scrollbar
 } as const;
 
 /**
  * Deeper and lighter tones of the palette colours, used only where
  * readability needs them (light text on a dark surface, small text on
- * cream, hover states). No colours from outside the palette's families.
+ * a light one, hover states). No colours from outside the palette's families.
  */
 export const tones = {
-  /** Primary sage, deepened — the hero, closing section, footer and
-   *  feature cards, where cream text needs a dark enough ground. */
-  forest: { 800: "#5B7058", 900: "#4E624C", 950: "#3F503D" },
-  /** Primary sage at its deepest — headings on cream. */
-  heading: "#344331",
-  /** Secondary olive, deepened — small labels on cream. */
-  secondaryDeep: "#5F6524",
-  /** Accent terracotta: lighter for hover, softer on dark grounds,
-   *  deeper when it is small text on cream. */
-  accentLight: "#E2846A",
-  accentSoft: "#EFA083",
-  accentDeep: "#9A3F25",
-  /** Neutral, deepened — scrollbar hover, quiet borders. */
-  neutralDeep: "#BAB6A9",
+  /** Deep olive — the hero, closing section, footer and feature cards. */
+  forest: { 800: "#565A08", 900: "#494C00", 950: "#3A3C00" },
+  /** Deep olive, a step deeper — headings on porcelain. */
+  heading: "#3A3C00",
+  /** Deep olive — small labels on porcelain. */
+  secondaryDeep: "#494C00",
+  /** Honey: lighter for hover, softer for the hero highlight. */
+  accentLight: "#F7A923",
+  accentSoft: "#F7B547",
+  /** Honeycomb — "Explore" links and small accent text on light grounds. */
+  accentDeep: "#9E3C00",
+  /** Neutral, deepened — scrollbar hover. */
+  neutralDeep: "#CDBFA3",
 } as const;
 
-/** The flowing thread: terracotta, sage and olive. */
+/** The flowing thread: honeycomb, moss and honey. */
 export const thread = {
-  /** On the cream sections — the exact palette colours. */
-  onLight: { accent: palette.accent, primary: palette.primary, secondary: palette.secondary },
-  /** On the deep-sage hero — lighter tints of the same three, so each
+  /** On the porcelain sections. */
+  onLight: { accent: "#9E3C00", primary: "#8B8E3C", secondary: "#E08A00" },
+  /** On the deep-olive hero — lighter tints of the same three, so each
    *  line stays clearly visible. */
-  onDark: { accent: "#EFA083", primary: "#BFD0B9", secondary: "#D3D696" },
+  onDark: { accent: "#F08A4A", primary: "#C3C67A", secondary: "#F7B547" },
   /** The single line at the end — the three colours, blended. */
-  unity: "#9A804F",
+  unity: "#8A5A10",
 } as const;

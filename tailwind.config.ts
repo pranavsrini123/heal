@@ -62,12 +62,12 @@ export default {
         sans: ["'Inter'", "system-ui", "sans-serif"],
       },
       backgroundImage: {
-        // The deep-sage surfaces (hero, closing section), softly lit from above.
-        "forest-radial": `radial-gradient(circle at 50% 0%, #6A8166 0%, ${tones.forest[900]} 55%, #435541 100%)`,
+        // The deep-olive surfaces (hero, closing section), softly lit from above.
+        "forest-radial": `radial-gradient(circle at 50% 0%, #62660F 0%, ${tones.forest[900]} 55%, #3C3F00 100%)`,
       },
       boxShadow: {
         soft: "0 10px 40px -10px rgba(42, 28, 22, 0.15)",
-        glow: "0 0 40px rgba(217, 107, 75, 0.25)", // accent
+        glow: "0 0 40px rgba(239, 148, 0, 0.25)", // accent
       },
       animation: {
         float: "float 8s ease-in-out infinite",
