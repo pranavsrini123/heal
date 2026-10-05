@@ -1,17 +1,20 @@
 import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { useMotionValue, useMotionValueEvent, useSpring } from "framer-motion";
 import { smoothPath, type Point } from "./curves";
-import { HEAD_BOX, NECK_CENTER_X, NECK_Y, PROFILE, THOUGHTS } from "./mindHead";
+import { HEAD_BOX, START, STRANDS, type StrandTone } from "./mindHead";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 /**
  * THE JOURNEY — confusion → healing → clarity → balance.
  *
- * A mind drawn in a few fine lines (a profile and some intertwined loops of
- * thought) sits in the hero. Its lines flow out through the neck like veins
- * and travel down the page as a small bundle of strands — keeping to the
- * margin beside the content and crossing the page only in the open gaps
- * between sections, so they never run over text, buttons or cards.
+ * A figure sits in the hero: a head that is a ball of looping lines in
+ * three muted colours (gold, terracotta, forest green), with a neck and
+ * shoulders drawn as single fine lines. The lines flow out over the right
+ * shoulder and down the page as a small bundle of strands — beside the
+ * content, across the open gaps between sections and card rows, and (on
+ * wide screens) straight down the gap between two columns of therapy
+ * cards — never over text, buttons or cards. The strands are translucent,
+ * so where two cross their colours mix (gold + green → olive, and so on).
  *
  * As the visitor scrolls, the strands merge into one another:
  *   hero ............... 3–4 lines (tangled, weaving)
@@ -34,12 +37,15 @@ interface Strand {
   headLen: number;
   rampEnd: number;
   main: boolean;
+  tone: StrandTone;
 }
 
 interface Geometry {
   w: number;
   h: number;
   strands: Strand[];
+  /** Where the dark hero ends: colours shift from their light to deep tone. */
+  heroBottom: number;
 }
 
 interface LengthTable {
@@ -51,6 +57,12 @@ interface LengthTable {
 interface Block {
   top: number;
   bottom: number;
+  /** Space kept between the line and this block. */
+  pad?: number;
+  /** Wide screens: run straight down this x (a gap between card columns). */
+  passX?: number;
+  /** The only margin free beside this block (-1 left, 1 right). */
+  side?: number;
 }
 
 /** A point on the route with its direction of travel (unit tangent). */
@@ -61,8 +73,15 @@ interface Node {
   ty: number;
 }
 
-const GOLD = "#c48a42"; // muted gold — between saffron and terracotta
+/** Each tone: [on the dark hero, on the cream sections]. */
+const TONES: Record<StrandTone, [string, string]> = {
+  gold: ["#d6ac5e", "#b5853a"],
+  terra: ["#cf7a4c", "#a24f2b"],
+  green: ["#8fa57f", "#4f6b4e"],
+};
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+/** On the inside of a bend, keep a strand within most of the bend's radius — so no strand ever folds into a cusp. */
+const hug = (o: number, bend: number) => (o * bend > 0.6 ? 0.6 / bend : o);
 const smooth = (t: number) => {
   const x = clamp(t, 0, 1);
   return x * x * (3 - 2 * x);
@@ -89,37 +108,42 @@ function textRect(el: Element, transformed: Element) {
 }
 
 /**
- * Where the head is drawn (container coordinates) and its scale.
+ * Where the figure is drawn (container coordinates) and its scale.
  * Desktop: inside the empty hero column (the old image area).
- * Phones/tablets: beside the hero heading, right-aligned to the content
- * edge, vertically centred on the two heading lines, clear of the eyebrow.
+ * Phones/tablets: to the right of the heading — the head beside "Mind.",
+ * the shoulders in the space below the heading — with its right side on
+ * the page margin the thread runs down, clear of the eyebrow above and
+ * the paragraph below.
  */
-function placeHead(start: Element, c: DOMRect, w: number, mobile: boolean) {
+function placeHead(start: Element, c: DOMRect, mobile: boolean, gutterR: number) {
   if (!mobile) {
     const r = start.getBoundingClientRect();
-    const k = Math.min((r.width * 0.78) / HEAD_BOX.w, (r.height * 0.86) / HEAD_BOX.h);
+    const k = Math.min((r.width * 0.84) / HEAD_BOX.w, (r.height * 0.92) / HEAD_BOX.h);
     const x0 = r.left - c.left + (r.width - HEAD_BOX.w * k) / 2 - HEAD_BOX.x * k;
-    const y0 = r.bottom - c.top - 6 - NECK_Y * k;
+    const y0 = r.bottom - c.top - 4 - START.y * k;
     return { k, x0, y0 };
   }
   const h1 = start;
   const lines = h1.children;
-  if (lines.length < 2) return null;
-  const pad = w >= 640 ? 32 : 20;
+  const para = h1.nextElementSibling;
+  if (lines.length < 2 || !para) return null;
   const fs = parseFloat(getComputedStyle(h1).fontSize);
   const l1 = textRect(lines[0], h1);
   const head = settledRect(h1, h1.getBoundingClientRect());
+  const below = settledRect(para, para.getBoundingClientRect());
   const eyebrow = h1.previousElementSibling;
   const eyebrowBottom = eyebrow ? settledRect(eyebrow, eyebrow.getBoundingClientRect()).bottom : head.top - 24;
   const gap = Math.max(16, fs * 0.45);
-  const right = w - pad;
-  const roomX = right - (l1.right + gap);
-  const roomY = head.bottom - 4 - (eyebrowBottom + 10);
-  const width = Math.min(roomX, fs * 2.3, 96, (roomY * HEAD_BOX.w) / HEAD_BOX.h);
-  if (width < 40) return null;
-  const k = width / HEAD_BOX.w;
-  const x0 = right - width - HEAD_BOX.x * k - c.left;
-  const y0 = head.bottom - 4 - NECK_Y * k - c.top;
+  const right = gutterR + c.left;
+  // The head (x 24–76 of the drawing) must clear the first heading line.
+  const kX = (right - (l1.right + gap)) / (START.x - 24);
+  const top = eyebrowBottom + 10;
+  const bottom = below.top - 12;
+  const kY = (bottom - top) / HEAD_BOX.h;
+  const k = Math.min(kX, kY, fs * 0.05);
+  if (k * HEAD_BOX.w < 60) return null;
+  const x0 = right - START.x * k - c.left;
+  const y0 = bottom - START.y * k - c.top;
   return { k, x0, y0 };
 }
 
@@ -137,8 +161,13 @@ function nodePath(nodes: Node[]): string {
     const b = nodes[i + 1];
     const cx = b.x - a.x;
     const cy = b.y - a.y;
-    const la = Math.abs(cx * a.tx + cy * a.ty) * 0.5;
-    const lb = Math.abs(cx * b.tx + cy * b.ty) * 0.5;
+    // Handles: half the distance travelled along the tangent — longer on
+    // the short side of a crossing, so its turns stay wide and calm.
+    const L = Math.hypot(cx, cy);
+    const pa = Math.abs(cx * a.tx + cy * a.ty);
+    const pb = Math.abs(cx * b.tx + cy * b.ty);
+    const la = Math.max(pa * 0.5, Math.min(L * 0.35, pa * 0.9));
+    const lb = Math.max(pb * 0.5, Math.min(L * 0.35, pb * 0.9));
     d += ` C ${f(a.x + a.tx * la)} ${f(a.y + a.ty * la)}, ${f(b.x - b.tx * lb)} ${f(b.y - b.ty * lb)}, ${f(b.x)} ${f(b.y)}`;
   }
   return d;
@@ -151,18 +180,19 @@ interface RouteOptions {
   ex: number;
   ey: number;
   blocks: Block[];
-  avoid: Block[];
+  avoid: { top: number; bottom: number; left: number; right: number }[];
   gutterL: number;
   gutterR: number;
   wobbleMax: number;
-  /** Phones: the head sits beside the heading — step straight into the margin. */
+  /** Phones: the figure stands on the margin — no drop needed. */
   toGutterFirst: boolean;
 }
 
 /**
  * The centre line of the journey: down the margin beside the content,
- * crossing the page only in the gaps between sections, then a single
- * calm curve onto the therapist's portrait.
+ * crossing the page in the gaps between sections and card rows, straight
+ * down a gap between card columns where one is given, then a single calm
+ * curve onto the therapist's portrait.
  */
 function route(o: RouteOptions): Node[] {
   const { w, sx, sy, ex, ey, gutterL, gutterR } = o;
@@ -172,7 +202,9 @@ function route(o: RouteOptions): Node[] {
   const CLEAR = 12;
 
   const nodes: Node[] = [{ x: sx, y: sy, tx: 0, ty: 1 }];
-  let side = sx > w / 2 ? 1 : -1;
+  let side = sx > w / 2 ? 1 : -1; // the last margin used
+  let x = sx;
+  let inPass = false;
   let y = sy;
   let wobble = 0;
 
@@ -183,42 +215,59 @@ function route(o: RouteOptions): Node[] {
     const n = Math.floor(len / step);
     for (let i = 1; i <= n; i++) {
       const yy = y + (len * i) / (n + 1);
-      const amp = o.wobbleMax * Math.pow(calmAt(yy), 1.6);
+      const amp = inPass ? 0 : o.wobbleMax * Math.pow(calmAt(yy), 1.6);
       wobble++;
-      nodes.push({ x: xOf(side) + (wobble % 2 ? amp : -amp), y: yy, tx: 0, ty: 1 });
+      nodes.push({ x: x + (wobble % 2 ? amp : -amp), y: yy, tx: 0, ty: 1 });
     }
-    nodes.push({ x: xOf(side), y: toY, tx: 0, ty: 1 });
+    nodes.push({ x, y: toY, tx: 0, ty: 1 });
     y = toY;
   };
 
-  // Cross the page inside a gap, switching margins.
-  const cross = (gapBottom: number) => {
-    for (const a of o.avoid) if (a.bottom > y && a.top < gapBottom) y = Math.max(y, a.bottom + CLEAR);
+  // Move across the page inside a gap, to the x given.
+  const cross = (gapBottom: number, toX: number) => {
     const from = nodes[nodes.length - 1];
-    const g = gapBottom - y;
-    if (g < 44) return false;
-    const to = -side;
-    const xB = xOf(to);
-    const dir = Math.sign(xB - from.x) || 1;
-    const yMid = y + g * 0.5;
-    const ax = from.x + (xB - from.x) * 0.5;
-    nodes.push({ x: ax, y: yMid, tx: dir, ty: 0 });
-    nodes.push({ x: xB, y: gapBottom, tx: 0, ty: 1 });
-    side = to;
+    const dir = Math.sign(toX - from.x) || 1;
+    const legs = (t: number): Node[] => [
+      { x: from.x, y: t, tx: 0, ty: 1 },
+      { x: from.x + (toX - from.x) * 0.5, y: (t + gapBottom) / 2, tx: dir, ty: 0 },
+      { x: toX, y: gapBottom, tx: 0, ty: 1 },
+    ];
+    // Keep clear of anything marked to avoid (the hero's scroll cue):
+    // start the crossing lower until its curve passes it.
+    const hitsAvoid = (t: number) => {
+      const d = nodePath(legs(t));
+      const nums = d.match(/-?\d+(\.\d+)?/g)!.map(Number);
+      const pts: Point[] = [];
+      for (let i = 2; i + 5 < nums.length; i += 6) {
+        const [x0, y0] = i === 2 ? [nums[0], nums[1]] : [nums[i - 2], nums[i - 1]];
+        for (let u = 0; u <= 1; u += 0.05) {
+          const v = 1 - u;
+          pts.push({
+            x: v * v * v * x0 + 3 * v * v * u * nums[i] + 3 * v * u * u * nums[i + 2] + u * u * u * nums[i + 4],
+            y: v * v * v * y0 + 3 * v * v * u * nums[i + 1] + 3 * v * u * u * nums[i + 3] + u * u * u * nums[i + 5],
+          });
+        }
+      }
+      return o.avoid.some((a) =>
+        pts.some((p) => p.x > a.left - CLEAR - 20 && p.x < a.right + CLEAR + 20 && p.y > a.top - CLEAR - 20 && p.y < a.bottom + CLEAR + 20),
+      );
+    };
+    let top = y;
+    while (hitsAvoid(top) && gapBottom - top >= 22) top += 8;
+    const g = gapBottom - top;
+    if (g < 22) return false;
+    if (top > y) runTo(top);
+    const [, mid, end] = legs(top);
+    nodes.push(mid, end);
+    x = toX;
     y = gapBottom;
     return true;
   };
 
-  if (o.toGutterFirst) {
-    // A short S-curve from the neck into the margin, finished before the
-    // caption under the heading begins.
-    const drop = 12;
-    nodes.push({ x: xOf(side), y: y + drop, tx: 0, ty: 1 });
-    y += drop;
-  } else {
-    // Fall straight from the neck while the strands draw together, so the
-    // turn that follows is smooth for every strand.
-    const drop = 70;
+  if (!o.toGutterFirst) {
+    // Fall straight down the side of the figure while the strands draw
+    // together, so the turn that follows is smooth for every strand.
+    const drop = 24;
     nodes.push({ x: sx, y: y + drop, tx: 0, ty: 1 });
     y += drop;
   }
@@ -228,12 +277,30 @@ function route(o: RouteOptions): Node[] {
   if (!inGutter) blocks = blocks.filter((b) => b.top > y);
   const startsInside = blocks.length > 0 && blocks[0].top <= y;
   blocks.forEach((b, i) => {
+    const pad = b.pad ?? CLEAR;
     if (i === 0 && startsInside) {
-      runTo(b.bottom + CLEAR);
+      runTo(b.bottom + pad);
       return;
     }
-    if (!cross(b.top - CLEAR)) runTo(b.top - CLEAR);
-    runTo(Math.max(y, b.bottom + CLEAR));
+    if (b.passX !== undefined) {
+      if (Math.abs(b.passX - x) < 3 || cross(b.top - pad, b.passX)) inPass = true;
+    } else if (b.side !== undefined && !inPass && b.side === side && Math.abs(x - xOf(side)) < 3) {
+      // Already beside it on the only free margin — stay.
+    } else if (b.side !== undefined) {
+      if (cross(b.top - pad, xOf(b.side))) {
+        side = b.side;
+        inPass = false;
+      }
+    } else if (inPass || Math.abs(x - xOf(side)) > 3) {
+      // Out of a column gap (or off the figure): to the other margin.
+      if (cross(b.top - pad, xOf(-side))) {
+        side = -side;
+        inPass = false;
+      }
+    } else if (cross(b.top - pad, xOf(-side))) {
+      side = -side;
+    }
+    runTo(Math.max(y, b.bottom + pad));
   });
 
   const turn = ey - 36;
@@ -272,7 +339,24 @@ function sampleRoute(d: string, step: number) {
     prev = p;
   }
   svg.remove();
-  return { pts: out, total };
+  // Signed curvature along the normal (positive: the curve bends towards
+  // +normal), widened to the strongest bend nearby so it eases in and out.
+  const raw = out.map((p, i) => {
+    const a = out[Math.max(0, i - 1)];
+    const b = out[Math.min(out.length - 1, i + 1)];
+    const ds = b.s - a.s || 1;
+    // tangent = (ny, -nx)
+    const dtx = (b.ny - a.ny) / ds;
+    const dty = (-b.nx + a.nx) / ds;
+    return dtx * p.nx + dty * p.ny;
+  });
+  const W = Math.max(1, Math.round(36 / ((total / n) || 1)));
+  const bend = raw.map((k, i) => {
+    let m = 0;
+    for (let j = Math.max(0, i - W); j <= Math.min(raw.length - 1, i + W); j++) if (Math.abs(raw[j]) > Math.abs(m)) m = raw[j];
+    return m || k;
+  });
+  return { pts: out.map((p, i) => ({ ...p, bend: bend[i] })), total };
 }
 
 export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElement> }) {
@@ -302,30 +386,6 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
       const start = container.querySelector(mobile ? '[data-thread="start-compact"]' : '[data-thread="start"]');
       const end = container.querySelector('[data-thread="end"]');
       if (!start || !end) return setGeo(null);
-      const headAt = placeHead(start, c, w, mobile);
-      if (!headAt) return setGeo(null);
-      const { k, x0, y0 } = headAt;
-      const map = (p: Point) => ({ x: x0 + p.x * k, y: y0 + p.y * k });
-
-      const sx = x0 + NECK_CENTER_X * k;
-      const sy = y0 + NECK_Y * k;
-      const e = end.getBoundingClientRect();
-      const ex = e.left - c.left + e.width / 2;
-      const ey = e.top - c.top;
-      if (ey - sy < 300) return setGeo(null);
-
-      const blocks = Array.from(container.querySelectorAll("[data-thread-content]"))
-        .map((el) => {
-          const r = el.getBoundingClientRect();
-          return { top: r.top - c.top, bottom: r.bottom - c.top };
-        })
-        .filter((b) => b.bottom > sy && b.bottom < ey)
-        .sort((p, q) => p.top - q.top);
-      const avoid = Array.from(container.querySelectorAll("[data-thread-avoid]"))
-        .map((el) => el.getBoundingClientRect())
-        .filter((r) => r.width > 0)
-        .map((r) => ({ top: r.top - c.top, bottom: r.bottom - c.top }));
-
       // Margins and how wide the bundle of strands may be in them.
       let gutterL: number;
       let half: number;
@@ -340,6 +400,108 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
         half = (Math.min(toContent, gutterL) - 3) / 1.3;
       }
       half = Math.max(3, Math.min(half, 18));
+      const gutterR = w - gutterL;
+
+      const headAt = placeHead(start, c, mobile, gutterR);
+      if (!headAt) return setGeo(null);
+      const { k, x0, y0 } = headAt;
+      const map = (p: Point) => ({ x: x0 + p.x * k, y: y0 + p.y * k });
+
+      const sx = x0 + START.x * k;
+      const sy = y0 + START.y * k;
+      const e = end.getBoundingClientRect();
+      const ex = e.left - c.left + e.width / 2;
+      const ey = e.top - c.top;
+      if (ey - sy < 300) return setGeo(null);
+      const hero = container.querySelector("#home");
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom - c.top : sy + 200;
+
+      const rel = (r: { top: number; bottom: number }) => ({ top: r.top - c.top, bottom: r.bottom - c.top });
+      const sections = Array.from(container.querySelectorAll("[data-thread-content]"))
+        .map((el) => ({ el, ...rel(el.getBoundingClientRect()) }))
+        .filter((b) => b.bottom > sy && b.bottom < ey)
+        .sort((p, q) => p.top - q.top);
+
+      // Sections with card rows are split, so the line can pass between
+      // the rows — and, where a row is laid out as one line of cards,
+      // straight down a gap between two of them.
+      const narrow: { top: number; bottom: number; half: number }[] = [];
+      const blocks: Block[] = sections.flatMap(({ el, top, bottom }) => {
+        const rows = Array.from(el.querySelectorAll("[data-thread-row]"));
+        if (!rows.length || !el.firstElementChild) return [{ top, bottom }];
+        const out: Block[] = [{ ...rel(el.firstElementChild.getBoundingClientRect()), pad: 6 }];
+        for (const row of rows) {
+          const rr = row.getBoundingClientRect();
+          // Down to the cards' own bottom edge (the row's list has padding).
+          const lastCard = row.querySelector("li");
+          const b: Block = {
+            top: rr.top - c.top,
+            bottom: (lastCard ? lastCard.getBoundingClientRect().bottom : rr.bottom) - c.top,
+            pad: 6,
+          };
+          const cards = Array.from(row.querySelectorAll("li")).map((li) => li.getBoundingClientRect());
+          const oneLine =
+            !mobile &&
+            cards.length > 1 &&
+            cards.every((r) => Math.abs(r.top - cards[0].top) < 2 && r.left >= c.left && r.right <= c.right);
+          if (oneLine) {
+            // Clear of the row's title and description.
+            let textRight = -Infinity;
+            row.querySelectorAll("h3, p").forEach((t) => {
+              const r = textRect(t, t);
+              if (r.bottom < cards[0].top) textRight = Math.max(textRight, r.right - c.left);
+            });
+            const mid = (cards[0].left + cards[cards.length - 1].right) / 2 - c.left;
+            let best: { x: number; gw: number } | null = null;
+            for (let i = 0; i < cards.length - 1; i++) {
+              const gw = cards[i + 1].left - cards[i].right;
+              const gx = (cards[i].right + cards[i + 1].left) / 2 - c.left;
+              if (gw < 12 || gx - gw / 2 < textRight + 28) continue;
+              if (!best || Math.abs(gx - mid) < Math.abs(best.x - mid) - 1) best = { x: gx, gw };
+            }
+            if (best) {
+              b.passX = best.x;
+              const zone = { top: b.top - 8, bottom: b.bottom + 8, half: Math.max(2, (best.gw / 2 - 4) / 1.3) };
+              const last = narrow[narrow.length - 1];
+              // Rows one above the other: stay drawn in across the gap.
+              if (last && zone.top - last.bottom < 120) {
+                last.bottom = zone.bottom;
+                last.half = Math.min(last.half, zone.half);
+              } else narrow.push(zone);
+            }
+          }
+          if (!b.passX) {
+            // A row that runs to the screen edge leaves only one margin free.
+            const ul = row.querySelector("ul");
+            const view = ul ? ul.getBoundingClientRect() : null;
+            const hits = (gx: number) =>
+              cards.some((r) => {
+                const l = Math.max(r.left, view ? view.left : r.left) - c.left;
+                const rr = Math.min(r.right, view ? view.right : r.right) - c.left;
+                return rr > l && gx > l - half * 0.6 - 2 && gx < rr + half * 0.6 + 2;
+              });
+            const lHit = hits(gutterL);
+            const rHit = hits(gutterR);
+            if (lHit !== rHit) b.side = lHit ? 1 : -1;
+          }
+          out.push(b);
+        }
+        return out;
+      });
+      const avoid = Array.from(container.querySelectorAll("[data-thread-avoid]"))
+        .map((el) => el.getBoundingClientRect())
+        .filter((r) => r.width > 0)
+        .map((r) => ({ ...rel(r), left: r.left - c.left, right: r.right - c.left }));
+
+      // The bundle draws in where it runs down a gap between cards.
+      const halfAt = (y: number) => {
+        let hv = half;
+        for (const z of narrow) {
+          const t = Math.min(smooth((y - (z.top - 36)) / 36), 1 - smooth((y - z.bottom) / 36));
+          hv = Math.min(hv, half + (z.half - half) * t);
+        }
+        return hv;
+      };
 
       const nodes = route({
         w,
@@ -350,43 +512,44 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
         blocks,
         avoid,
         gutterL,
-        gutterR: w - gutterL,
+        gutterR,
         wobbleMax: Math.max(0, half * 0.35),
         toGutterFirst: mobile,
       });
       const spine = sampleRoute(nodePath(nodes), 6);
 
       // Section heights that set the merge schedule.
-      const sectionTops = blocks.filter((b) => b.top > sy + 20).map((b) => b.top);
+      const sectionTops = sections.filter((b) => b.top > sy + 20).map((b) => b.top);
       const [yT = sy + 400, yW = yT + 600, yTe = yW + 600, yA = ey - 120] = sectionTops;
 
-      // Strands: A (profile, survives), then the thoughts.
-      const thoughts = THOUGHTS.slice(0, mobile ? 2 : 3);
-      const heads: Point[][] = [PROFILE, ...thoughts];
-      const exits = heads.map((pts) => pts[pts.length - 1].x);
+      // Strands: A (the figure, survives), then the thoughts.
+      const heads = STRANDS.slice(0, mobile ? 3 : 4);
+      const tips = heads.map((st) => st.points[st.points.length - 1].x);
       const count = heads.length;
       // Where each strand sits in the bundle once it reaches the margin.
-      const lane = exits.map((_, i) => (count === 1 ? 0 : -1 + (2 * i) / (count - 1)));
+      const lane = tips.map((_, i) => (count === 1 ? 0 : -1 + (2 * i) / (count - 1)));
       // When each thought merges into the surviving line (by height).
       const mergeAt = mobile
         ? [null, [yTe - 60, yA - 40], [yT, yW - 20]]
         : [null, [yTe - 60, yA - 40], [yT + 40, yW - 20], [sy + 60, yT - 30]];
       const settleA: [number, number] = [yTe, ey - 60];
 
-      const neckOffset = (i: number) => -(exits[i] - NECK_CENTER_X) * k; // along the normal (normal points left when heading down)
-      const lead = mobile ? 60 : 80;
+      // Offset along the normal (which points left when heading down).
+      const tipOffset = (i: number) => -(tips[i] - START.x) * k;
+      const lead = mobile ? 80 : 200;
       const weaveLen = mobile ? 150 : 240;
 
       const offsetsFor = (i: number, s: number, y: number) => {
         const calm = 1 - clamp((y - sy) / (ey - sy), 0, 1);
         const intoBundle = smooth(s / lead);
-        const free =
-          -lane[i] * half * 0.6 + Math.sin((s / weaveLen) * Math.PI * 2 + i * 1.9) * half * 0.35 * calm * calm;
-        return neckOffset(i) * (1 - intoBundle) + free * intoBundle;
+        const hv = halfAt(y);
+        // Same order as at the figure (A outermost), so strands never cross here.
+        const free = lane[i] * hv * 0.6 + Math.sin((s / weaveLen) * Math.PI * 2 + i * 1.9) * hv * 0.35 * calm * calm;
+        return tipOffset(i) * (1 - intoBundle) + free * intoBundle;
       };
 
-      const strands: Strand[] = heads.map((headPts, i) => {
-        const headMapped = headPts.map(map);
+      const strands: Strand[] = heads.map((st, i) => {
+        const headMapped = st.points.map(map);
         const pts: Point[] = [...headMapped.slice(0, -1)];
         const merge = mergeAt[i] as [number, number] | null;
         for (const p of spine.pts) {
@@ -397,10 +560,12 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
             const m = merge ? smooth((p.y - merge[0]) / (merge[1] - merge[0])) : 0;
             o = offsetsFor(i, p.s, p.y) * (1 - m) + oA * m;
             if (merge && p.y >= merge[1]) {
+              o = hug(o, p.bend);
               pts.push({ x: p.x + p.nx * o, y: p.y + p.ny * o });
               break;
             }
           }
+          o = hug(o, p.bend);
           pts.push({ x: p.x + p.nx * o, y: p.y + p.ny * o });
         }
         // Decimate the sampled part a little; the spline smooths between.
@@ -412,16 +577,17 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
         const probe = sampleRoute(smoothPath(headMapped, 0.9), 50);
         return {
           d: smoothPath(all, 0.9),
-          opacity: i === 0 ? (mobile ? 0.8 : 0.85) : mobile ? 0.6 : 0.62,
-          width: i === 0 ? (mobile ? 1.15 : 1.35) : mobile ? 0.9 : 1.05,
+          opacity: i === 0 ? (mobile ? 0.8 : 0.85) : mobile ? 0.68 : 0.7,
+          width: i === 0 ? (mobile ? 1.15 : 1.35) : mobile ? 0.95 : 1.1,
           headTop,
           headLen: probe.total,
           rampEnd: Math.min(sy, Math.max(headTop + 40, window.innerHeight * 0.55)),
           main: i === 0,
+          tone: st.tone,
         };
       });
 
-      setGeo({ w, h, strands });
+      setGeo({ w, h, strands, heroBottom });
     };
 
     const schedule = () => {
@@ -531,6 +697,22 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
       aria-hidden="true"
       style={{ opacity: ready ? 1 : 0 }}
     >
+      <defs>
+        {(Object.keys(TONES) as StrandTone[]).map((tone) => (
+          <linearGradient
+            key={tone}
+            id={`sj-thread-${tone}`}
+            gradientUnits="userSpaceOnUse"
+            x1={0}
+            y1={geo.heroBottom - 60}
+            x2={0}
+            y2={geo.heroBottom + 60}
+          >
+            <stop offset="0" stopColor={TONES[tone][0]} />
+            <stop offset="1" stopColor={TONES[tone][1]} />
+          </linearGradient>
+        ))}
+      </defs>
       {geo.strands.map((st, i) => (
         <path
           key={i}
@@ -538,14 +720,14 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
             pathRefs.current[i] = el;
           }}
           d={st.d}
-          stroke={GOLD}
+          stroke={`url(#sj-thread-${st.tone})`}
           strokeOpacity={st.opacity}
           strokeWidth={st.width}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       ))}
-      {!reduced && <circle ref={beadRef} r={2.2} fill={GOLD} />}
+      {!reduced && <circle ref={beadRef} r={2.2} fill="url(#sj-thread-gold)" />}
     </svg>
   );
 }

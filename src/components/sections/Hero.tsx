@@ -29,10 +29,10 @@ export function Hero() {
             Holistic Healing &amp; Wellness
           </motion.span>
 
-          {/* Phones/tablets: StoryThread measures this heading's lines and draws
-              the tangle in the space to the right of "Mind." — the start of the
-              same single stroke that runs down the page. (On desktop the tangle
-              lives in the framed image on the right.) */}
+          {/* Phones/tablets: StoryThread measures this heading and draws the
+              figure — a head of tangled lines beside "Mind.", its shoulders in
+              the space below — whose lines run on down the page. (Desktop: the
+              figure fills the empty column on the right.) */}
           <motion.h1
             {...rise(0.35)}
             data-thread="start-compact"
@@ -44,19 +44,9 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          {/* Phones/tablets: a quiet caption for the tangle drawn beside the
-              heading — set under it, right-aligned to the same edge, so the
-              two read as one figure. (Desktop: not shown.) */}
-          <motion.p
-            {...rise(0.65)}
-            className="ml-auto mt-4 max-w-[15rem] text-right font-display text-base italic leading-snug text-cream-100/55 lg:hidden"
-          >
-            When the mind feels overwhelmed, everything can feel tangled.
-          </motion.p>
-
           <motion.p
             {...rise(0.8)}
-            className="mt-6 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-8 text-cream-100/75 sm:text-lg"
+            className="mt-20 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-24 lg:mt-8 text-cream-100/75 sm:text-lg"
           >
             Discover a natural approach to wellbeing through personalized holistic therapies designed to restore
             balance, calm and vitality.
@@ -95,6 +85,7 @@ export function Hero() {
         transition={{ duration: 1, delay: 1.8 }}
         className="absolute bottom-7 left-8 z-10 hidden items-center gap-3 text-cream-100/60 transition-colors hover:text-cream-100 lg:flex lg:left-[max(2rem,calc((100%_-_80rem)/2_+_2rem))]"
         aria-label="Scroll to explore"
+        data-thread-avoid
       >
         <span className="font-sans text-[10px] uppercase tracking-widest2">Scroll to Explore</span>
         <motion.span

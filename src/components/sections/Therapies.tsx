@@ -22,10 +22,18 @@ export function Therapies() {
           {categoryOrder.map((category) => {
             const items = therapies.filter((t) => t.category === category);
             return (
-              <div key={category}>
+              <div key={category} data-thread-row>
                 <div className="mb-5 flex items-end justify-between gap-4 sm:mb-7">
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="text-balance font-display text-2xl font-semibold text-wine-800 sm:text-3xl">
+                    <h3
+                      className={
+                        category === "mental"
+                          ? // Phones: always one line — the size eases down with the
+                            // screen just enough to sit beside the Swipe hint.
+                            "whitespace-nowrap font-display text-[length:min(1.5rem,calc((100vw-80px)/12.2))] font-semibold text-wine-800 min-[360px]:text-[length:min(1.5rem,calc((100vw-124px)/12.2))] sm:whitespace-normal sm:text-balance sm:text-3xl"
+                          : "text-balance font-display text-2xl font-semibold text-wine-800 sm:text-3xl"
+                      }
+                    >
                       {therapyCategories[category].title}
                     </h3>
                     <p className="font-sans text-sm text-ink-700/70">{therapyCategories[category].description}</p>
