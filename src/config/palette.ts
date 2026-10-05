@@ -6,12 +6,12 @@
  * plain CSS, and the flowing thread reads its colours from here too.
  * Change a colour here and it changes everywhere.
  *
- * Palette: Deep Olive #494C00 · Moss #8B8E3C · Porcelain #FDF5EA ·
+ * Palette: Forest Green #2C442C · Moss #8B8E3C · Porcelain #FDF5EA ·
  *          Honey #EF9400 · Honeycomb #9E3C00
  */
 export const palette = {
   primary: "#8B8E3C", // moss — icons, outlines, the thread
-  secondary: "#494C00", // deep olive — small labels
+  secondary: "#2C442C", // forest green — small labels
   background: "#FDF5EA", // porcelain — the page
   accent: "#EF9400", // honey — Book a Consultation, highlights
   light: "#F5E7CF", // porcelain with a touch of honey — light cards
@@ -24,12 +24,12 @@ export const palette = {
  * a light one, hover states). No colours from outside the palette's families.
  */
 export const tones = {
-  /** Deep olive — the hero, closing section, footer and feature cards. */
-  forest: { 800: "#565A08", 900: "#494C00", 950: "#3A3C00" },
-  /** Deep olive, a step deeper — headings on porcelain. */
-  heading: "#3A3C00",
-  /** Deep olive — small labels on porcelain. */
-  secondaryDeep: "#494C00",
+  /** Forest green — the hero, closing section, footer and feature cards. */
+  forest: { 800: "#344E31", 900: "#2C442C", 950: "#1F331F" },
+  /** Forest green, a step deeper — headings on porcelain. */
+  heading: "#1F331F",
+  /** Forest green — small labels on porcelain. */
+  secondaryDeep: "#2C442C",
   /** Honey: lighter for hover, softer for the hero highlight. */
   accentLight: "#F7A923",
   accentSoft: "#F7B547",
@@ -43,7 +43,7 @@ export const tones = {
 export const thread = {
   /** On the porcelain sections. */
   onLight: { accent: "#9E3C00", primary: "#8B8E3C", secondary: "#E08A00" },
-  /** On the deep-olive hero — lighter tints of the same three, so each
+  /** On the forest-green hero — lighter tints of the same three, so each
    *  line stays clearly visible. */
   onDark: { accent: "#F08A4A", primary: "#C3C67A", secondary: "#F7B547" },
   /** The single line at the end — the three colours, blended. */

@@ -62,8 +62,8 @@ export default {
         sans: ["'Inter'", "system-ui", "sans-serif"],
       },
       backgroundImage: {
-        // The deep-olive surfaces (hero, closing section), softly lit from above.
-        "forest-radial": `radial-gradient(circle at 50% 0%, #62660F 0%, ${tones.forest[900]} 55%, #3C3F00 100%)`,
+        // The forest-green surfaces (hero, closing section), softly lit from above.
+        "forest-radial": `radial-gradient(circle at 50% 0%, #3A5536 0%, ${tones.forest[900]} 55%, #1D301D 100%)`,
       },
       boxShadow: {
         soft: "0 10px 40px -10px rgba(42, 28, 22, 0.15)",
