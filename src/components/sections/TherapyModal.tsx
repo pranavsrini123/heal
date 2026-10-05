@@ -40,13 +40,13 @@ export function TherapyModal({ therapy, onClose }: TherapyModalProps) {
           aria-labelledby="therapy-modal-title"
         >
           <motion.div
-            className="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-forest-950/70 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
           />
 
           <motion.div
-            className="relative w-full max-w-lg max-h-[85vh] max-h-[85svh] overflow-y-auto overscroll-contain rounded-xl bg-cream-50 shadow-soft"
+            className="relative w-full max-w-lg max-h-[85vh] max-h-[85svh] overflow-y-auto overscroll-contain rounded-xl bg-light shadow-soft"
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
@@ -58,16 +58,16 @@ export function TherapyModal({ therapy, onClose }: TherapyModalProps) {
                 alt=""
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/30 to-ink-950/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/30 to-forest-950/10" />
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-cream-50/90 text-ink-900 sm:right-4 sm:top-4 hover:bg-cream-50 transition-colors"
+                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-light/90 text-ink-900 sm:right-4 sm:top-4 hover:bg-light transition-colors"
                 aria-label="Close"
               >
                 <X size={18} />
               </button>
-              <span className="absolute bottom-4 left-6 font-sans text-[11px] uppercase tracking-widest2 text-cream-100/85">
+              <span className="absolute bottom-4 left-6 font-sans text-[11px] uppercase tracking-widest2 text-background/85">
                 {therapyCategories[therapy.category].title}
               </span>
             </div>
@@ -81,13 +81,13 @@ export function TherapyModal({ therapy, onClose }: TherapyModalProps) {
               </p>
 
               <div className="mt-6">
-                <h4 className="font-sans text-xs uppercase tracking-widest2 text-clay-600 font-medium mb-3">
+                <h4 className="font-sans text-xs uppercase tracking-widest2 text-secondary-deep font-medium mb-3">
                   What a session involves
                 </h4>
                 <ul className="flex flex-col gap-2.5">
                   {therapy.sessionInvolves.map((item) => (
                     <li key={item} className="flex items-start gap-2.5 font-sans text-sm text-ink-800">
-                      <Check size={16} className="mt-0.5 shrink-0 text-clay-500" aria-hidden="true" />
+                      <Check size={16} className="mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                       <span>{item}</span>
                     </li>
                   ))}

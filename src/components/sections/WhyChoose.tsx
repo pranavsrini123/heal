@@ -15,15 +15,15 @@ const iconMap: Record<(typeof whyChoose)[number]["icon"], React.ComponentType<Lu
 
 export function WhyChoose() {
   return (
-    <section id="why-sanjivini" className="relative bg-cream-100 pb-14 pt-8 sm:pb-24 sm:pt-16" aria-label="Why choose Sanjivini">
+    <section id="why-sanjivini" className="relative bg-background pb-14 pt-8 sm:pb-24 sm:pt-16" aria-label="Why choose Sanjivini">
       <div data-thread-content className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
         {/* Phones: the Sanjivini lotus and the title share one line. */}
         <RevealOnScroll className="md:hidden">
           <div className="flex flex-col items-center gap-2">
-            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-saffron-600">Our Approach</span>
+            <span className="font-sans text-xs font-medium uppercase tracking-widest2 text-secondary-deep">Our Approach</span>
             <div className="flex items-center justify-center gap-2.5">
-              <LotusMotif className="h-7 w-10 shrink-0 text-clay-500" />
-              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-wine-800 min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
+              <LotusMotif className="h-7 w-10 shrink-0 text-primary" />
+              <h2 className="font-display text-[1.55rem] font-semibold leading-tight text-heading min-[360px]:text-[1.75rem] min-[375px]:text-3xl">
                 Why Choose Sanjivini?
               </h2>
             </div>
@@ -44,17 +44,17 @@ export function WhyChoose() {
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className={`flex h-full flex-row items-start gap-4 rounded-3xl border p-5 shadow-sm transition-shadow duration-300 hover:border-saffron-400/50 hover:shadow-soft sm:flex-col sm:p-6 ${deep ? "border-wine-700 bg-wine-700 hover:border-saffron-300/50" : "border-ink-900/5 bg-cream-50"}`}
+                  className={`flex h-full flex-row items-start gap-4 rounded-3xl border p-5 shadow-sm transition-shadow duration-300 hover:border-secondary/50 hover:shadow-soft sm:flex-col sm:p-6 ${deep ? "border-forest-900 bg-forest-900 hover:border-light/50" : "border-ink-900/5 bg-light"}`}
                 >
                   {/* Line icon in a fine ring — never a filled colour chip. */}
-                  <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border ${deep ? "border-cream-100/25 text-saffron-300" : "border-clay-300/60 text-clay-500"}`}>
+                  <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border ${deep ? "border-background/25 text-light" : "border-primary/40 text-primary"}`}>
                     <Icon size={19} strokeWidth={1.5} />
                   </span>
                   <div>
-                    <h3 className={`font-display text-[1.1rem] sm:text-lg font-semibold leading-snug ${deep ? "text-cream-50" : "text-wine-800"}`}>
+                    <h3 className={`font-display text-[1.1rem] sm:text-lg font-semibold leading-snug ${deep ? "text-light" : "text-heading"}`}>
                       {item.title}
                     </h3>
-                    <p className={`mt-1.5 font-sans text-sm sm:mt-2 leading-relaxed ${deep ? "text-cream-100/80" : "text-ink-700/80"}`}>{item.description}</p>
+                    <p className={`mt-1.5 font-sans text-sm sm:mt-2 leading-relaxed ${deep ? "text-background/80" : "text-ink-700/80"}`}>{item.description}</p>
                   </div>
                 </motion.div>
               </RevealOnScroll>

@@ -5,9 +5,9 @@ import { testimonials } from "@/config/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const cardClass =
-  "flex w-full flex-col items-center gap-5 rounded-3xl border border-ink-900/5 bg-cream-50 px-6 py-8 text-center shadow-sm sm:gap-6 sm:px-12 sm:py-12";
+  "flex w-full flex-col items-center gap-5 rounded-3xl border border-ink-900/5 bg-light px-6 py-8 text-center shadow-sm sm:gap-6 sm:px-12 sm:py-12";
 const quoteClass = "font-display text-[1.1rem] leading-relaxed text-ink-900 sm:text-2xl lg:text-[1.55rem]";
-const nameClass = "font-sans text-xs uppercase tracking-widest2 text-clay-600 sm:text-sm";
+const nameClass = "font-sans text-xs uppercase tracking-widest2 text-secondary-deep sm:text-sm";
 
 export function Testimonials() {
   const [index, setIndex] = useState(0);
@@ -22,7 +22,7 @@ export function Testimonials() {
   const longest = testimonials.reduce((a, b) => (b.quote.length > a.quote.length ? b : a));
 
   return (
-    <section id="testimonials" className="relative bg-cream-100 py-12 sm:py-20" aria-label="Client testimonials">
+    <section id="testimonials" className="relative bg-background py-12 sm:py-20" aria-label="Client testimonials">
       <div data-thread-content className="relative z-[2] mx-auto max-w-3xl px-5 sm:px-8">
         <SectionHeading eyebrow="Testimonials" title="Words From Our Community" />
 
@@ -47,7 +47,7 @@ export function Testimonials() {
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className={`${cardClass} [grid-area:1/1]`}
               >
-                <Quote className="text-saffron-400" size={30} aria-hidden="true" />
+                <Quote className="text-secondary" size={30} aria-hidden="true" />
                 <p className={quoteClass}>{`"${current.quote}"`}</p>
                 <span className={nameClass}>{current.name}</span>
               </motion.div>
@@ -58,7 +58,7 @@ export function Testimonials() {
             <button
               type="button"
               onClick={() => go(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-900/15 text-ink-800 hover:bg-ink-800 hover:text-cream-100 transition-colors"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-900/15 text-ink-800 hover:bg-accent hover:text-ink-950 transition-colors"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={19} />
@@ -80,7 +80,7 @@ export function Testimonials() {
                 >
                   <span
                     className={`block h-2 rounded-full transition-all duration-300 ${
-                      i === index ? "w-6 bg-clay-400" : "w-2 bg-ink-900/15 group-hover:bg-ink-900/30"
+                      i === index ? "w-6 bg-accent" : "w-2 bg-ink-900/15 group-hover:bg-ink-900/30"
                     }`}
                   />
                 </button>
@@ -90,7 +90,7 @@ export function Testimonials() {
             <button
               type="button"
               onClick={() => go(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-900/15 text-ink-800 hover:bg-ink-800 hover:text-cream-100 transition-colors"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-900/15 text-ink-800 hover:bg-accent hover:text-ink-950 transition-colors"
               aria-label="Next testimonial"
             >
               <ChevronRight size={19} />

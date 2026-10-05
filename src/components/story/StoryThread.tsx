@@ -3,12 +3,13 @@ import { useMotionValue, useMotionValueEvent, useSpring } from "framer-motion";
 import { smoothPath, type Point } from "./curves";
 import { HEAD_BOX, START, STRANDS, type StrandTone } from "./mindHead";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { thread } from "@/config/palette";
 
 /**
  * THE JOURNEY — confusion → healing → integration → clarity → balance.
  *
  * A figure sits in the hero: a head that is a ball of looping lines in
- * three muted colours (gold, terracotta, forest green), with a neck and
+ * three muted colours (terracotta, sage, olive), with a neck and
  * shoulders drawn as single fine lines. Its lines leave over the right
  * shoulder and flow down the page as separate, countable strands that
  * weave across one another, then converge and merge one by one:
@@ -67,14 +68,17 @@ interface Rect {
   b: number;
 }
 
-/** Each tone: [on the dark hero, on the cream sections]. */
+/**
+ * Each tone: [on the deep-sage hero, on the cream sections] — from the
+ * central palette (src/config/palette.ts): terracotta, sage and olive.
+ */
 const TONES: Record<StrandTone, [string, string]> = {
-  gold: ["#d6ac5e", "#b5853a"],
-  terra: ["#cf7a4c", "#a24f2b"],
-  green: ["#8fa57f", "#4f6b4e"],
+  gold: [thread.onDark.secondary, thread.onLight.secondary],
+  terra: [thread.onDark.accent, thread.onLight.accent],
+  green: [thread.onDark.primary, thread.onLight.primary],
 };
-/** Terracotta, gold and forest green, integrated. */
-const UNITY = "#8d6a3c";
+/** Terracotta, sage and olive, integrated. */
+const UNITY = thread.unity;
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const smooth = (t: number) => {
@@ -228,8 +232,13 @@ function fitCentreline(o: FitOptions) {
   const nRows = Math.max(2, Math.ceil((o.ey - o.sy) / ROW) + 1);
   const ys = Array.from({ length: nRows }, (_, j) => Math.min(o.ey, o.sy + j * ROW));
   const nx = Math.floor(o.w / DX) + 1;
-  const K = Math.ceil((5 * ROW) / DX);
-  const clear = o.mobile ? 5 : 16;
+  // Steepest allowed sideways travel per row (phones: gentler, so the
+  // line never skims sideways past a heading).
+  const K = Math.ceil(((o.mobile ? 2.5 : 5) * ROW) / DX);
+  const clear = o.mobile ? 7 : 16;
+  // Room kept above and below text while planning, so the line moves
+  // aside well before it reaches a heading rather than skimming it.
+  const clearV = o.mobile ? 30 : 16;
   const cardCost = o.mobile ? 0.1 : 0.15;
   const prefW = o.mobile ? 6 : 8;
   const slopeW = 6;
@@ -261,8 +270,8 @@ function fitCentreline(o: FitOptions) {
           else base[i] = prefW * ((x - p) / o.w) ** 2;
         }
         for (const wl of walls) {
-          if (wl.t - clear > y + ROW / 2) break;
-          if (wl.b + clear < y - ROW / 2) continue;
+          if (wl.t - clearV > y + ROW / 2) break;
+          if (wl.b + clearV < y - ROW / 2) continue;
           const pad = sp + clear + extra[wl.i];
           const a = Math.max(0, Math.floor((wl.l - pad) / DX));
           const b = Math.min(nx - 1, Math.ceil((wl.r + pad) / DX));
@@ -365,6 +374,7 @@ function fitCentreline(o: FitOptions) {
         }
       }
     }
+    if (pass === 2) break; // the last pass ends on the nudge itself
     const next = new Float64Array(X);
     for (let j = 1; j < nRows - 1; j++) {
       if (ys[j] <= forcedStart || ys[j] >= forcedEnd) continue;
@@ -532,7 +542,7 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
       // then draw together wherever the room is tight and part again after.
       const fitSpread = mobile ? (y: number) => Math.min(spread(y), 2.5) : spread;
       const X = fitCentreline({ w, sx, sy, ex, ey, mobile, spread: fitSpread, walls, cards, pref });
-      const clearW = mobile ? 4 : 14;
+      const clearW = mobile ? 6 : 14;
       const sortedWalls = [...walls].sort((a, b) => a.t - b.t);
       const roomAt = (y: number) => {
         const x = X(y);
@@ -585,6 +595,29 @@ export function StoryThread({ containerRef }: { containerRef: RefObject<HTMLElem
         for (let y = sy; y < stop; y += STEP) body.push({ x: X(y) + offset(i, y) * squeeze(y), y });
         if (i === 0) body.push({ x: ex, y: ey + 2 });
         else body.push({ x: X(stop) + offset(i, stop) * squeeze(stop), y: stop });
+        // Final guard: where a strand would still touch text, ease it
+        // sideways just clear of it (the nudge fades in and out).
+        const PAD = mobile ? 4 : 8;
+        const push = body.map((p, j) => {
+          if (j < 4 || j > body.length - 3) return 0;
+          for (const wl of sortedWalls) {
+            if (wl.t - PAD > p.y) break;
+            if (wl.b + PAD < p.y || p.x < wl.l - PAD || p.x > wl.r + PAD) continue;
+            const toLeft = wl.l - PAD - p.x;
+            const toRight = wl.r + PAD - p.x;
+            return Math.abs(toLeft) < Math.abs(toRight) && wl.l - PAD > 2 ? toLeft : toRight;
+          }
+          return 0;
+        });
+        const R3 = 5;
+        body.forEach((p, j) => {
+          let best = 0;
+          for (let d = -R3; d <= R3; d++) {
+            const v = (push[j + d] ?? 0) * (1 - Math.abs(d) / (R3 + 1));
+            if (Math.abs(v) > Math.abs(best)) best = v;
+          }
+          p.x = clamp(p.x + best, 2, w - 2);
+        });
         const all = [...headMapped.slice(0, -1), ...body];
         const headTop = Math.min(...headMapped.map((p) => p.y));
         const pts = splinePoints(all, 0.9, 4);

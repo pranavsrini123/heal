@@ -60,7 +60,7 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-cream-100/80 backdrop-blur-md border-b border-ink-900/10 shadow-sm"
+            ? "bg-background/80 backdrop-blur-md border-b border-ink-900/10 shadow-sm"
             : "bg-transparent border-b border-transparent"
         }`}
       >
@@ -71,15 +71,15 @@ export function Navbar() {
           <a href="#home" className="group -my-2 flex min-h-[44px] items-center gap-2.5 py-2">
             <LotusMotif
               className={`h-6 w-9 shrink-0 sm:h-7 sm:w-10 transition-colors duration-500 ${
-                scrolled ? "text-ink-800" : "text-cream-100"
+                scrolled ? "text-ink-800" : "text-background"
               }`}
             />
             <span
               className={`whitespace-nowrap font-display text-[1.05rem] min-[360px]:text-lg sm:text-xl lg:whitespace-normal font-semibold tracking-wide transition-colors duration-500 ${
-                scrolled ? "text-ink-900" : "text-cream-100"
+                scrolled ? "text-ink-900" : "text-background"
               }`}
             >
-              Sanjivini <span className="font-normal italic text-clay-400">Healing Hub</span>
+              Sanjivini <span className="font-normal italic text-accent">Healing Hub</span>
             </span>
           </a>
 
@@ -88,8 +88,8 @@ export function Navbar() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className={`relative py-1 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-clay-400 after:transition-all after:duration-300 hover:after:w-full ${
-                    scrolled ? "text-ink-800 hover:text-ink-900" : "text-cream-100/90 hover:text-cream-100"
+                  className={`relative py-1 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full ${
+                    scrolled ? "text-ink-800 hover:text-ink-900" : "text-background/90 hover:text-background"
                   }`}
                 >
                   {item.label}
@@ -105,8 +105,8 @@ export function Navbar() {
               rel="noopener noreferrer"
               className={`inline-flex items-center rounded-full px-6 py-2.5 text-sm font-medium tracking-wide transition-all duration-300 ${
                 scrolled
-                  ? "bg-wine-600 text-cream-50 hover:bg-wine-700 shadow-soft"
-                  : "bg-cream-100/10 text-cream-100 border border-cream-100/40 hover:bg-cream-100 hover:text-ink-900 backdrop-blur-sm"
+                  ? "bg-accent text-ink-950 hover:bg-accent-light shadow-soft"
+                  : "bg-background/10 text-background border border-background/40 hover:bg-background hover:text-ink-900 backdrop-blur-sm"
               }`}
             >
               Book a Consultation
@@ -117,7 +117,7 @@ export function Navbar() {
             ref={openerRef}
             type="button"
             className={`-mr-1.5 flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 lg:hidden ${
-              scrolled ? "text-ink-900 hover:bg-ink-900/5" : "text-cream-100 hover:bg-cream-100/10"
+              scrolled ? "text-ink-900 hover:bg-ink-900/5" : "text-background hover:bg-background/10"
             }`}
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
@@ -136,7 +136,7 @@ export function Navbar() {
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="fixed inset-0 z-[100] flex flex-col overflow-y-auto overscroll-contain bg-ink-950 text-cream-100 lg:hidden"
+            className="fixed inset-0 z-[100] flex flex-col overflow-y-auto overscroll-contain bg-forest-950 text-background lg:hidden"
             style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
             initial={reduced ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
             animate={reduced ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
@@ -144,21 +144,21 @@ export function Navbar() {
             transition={{ duration: 0.55, ease: EASE }}
           >
             <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-              <div className="absolute inset-0 bg-ink-radial opacity-70" />
-              <LotusMotif className="absolute -bottom-10 -right-12 h-48 w-72 text-cream-100/[0.04]" />
+              <div className="absolute inset-0 bg-forest-radial opacity-70" />
+              <LotusMotif className="absolute -bottom-10 -right-12 h-48 w-72 text-background/[0.04]" />
             </div>
 
             <div className="relative flex items-center justify-between px-5 py-3 sm:px-8">
               <a href="#home" onClick={(e) => goTo(e, "#home")} className="-my-2 flex min-h-[44px] items-center gap-2.5 py-2">
-                <LotusMotif className="h-6 w-9 shrink-0 text-cream-100 sm:h-7 sm:w-10" />
+                <LotusMotif className="h-6 w-9 shrink-0 text-background sm:h-7 sm:w-10" />
                 <span className="whitespace-nowrap font-display text-[1.05rem] font-semibold tracking-wide min-[360px]:text-lg sm:text-xl">
-                  Sanjivini <span className="font-normal italic text-clay-400">Healing Hub</span>
+                  Sanjivini <span className="font-normal italic text-accent">Healing Hub</span>
                 </span>
               </a>
               <button
                 ref={closeRef}
                 type="button"
-                className="-mr-1.5 flex h-11 w-11 items-center justify-center rounded-full border border-cream-100/20 text-cream-100 transition-colors hover:border-saffron-300 hover:text-saffron-300"
+                className="-mr-1.5 flex h-11 w-11 items-center justify-center rounded-full border border-background/20 text-background transition-colors hover:border-light hover:text-light"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"
               >
@@ -175,7 +175,7 @@ export function Navbar() {
               {nav.map((item, i) => (
                 <motion.li
                   key={item.href}
-                  className="border-b border-cream-100/10"
+                  className="border-b border-background/10"
                   variants={{
                     closed: { opacity: 0, y: reduced ? 0 : 14 },
                     open: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
@@ -184,12 +184,12 @@ export function Navbar() {
                   <a
                     href={item.href}
                     onClick={(e) => goTo(e, item.href)}
-                    className="group flex min-h-[56px] items-baseline gap-4 py-3 transition-colors active:text-saffron-300 sm:min-h-[64px]"
+                    className="group flex min-h-[56px] items-baseline gap-4 py-3 transition-colors active:text-light sm:min-h-[64px]"
                   >
-                    <span className="w-6 font-sans text-[11px] tracking-widest2 text-clay-400/70">
+                    <span className="w-6 font-sans text-[11px] tracking-widest2 text-accent/70">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-display text-[1.75rem] leading-tight transition-colors group-hover:text-saffron-300 sm:text-[2rem]">
+                    <span className="font-display text-[1.75rem] leading-tight transition-colors group-hover:text-light sm:text-[2rem]">
                       {item.label}
                     </span>
                   </a>
@@ -208,11 +208,11 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex min-h-[50px] w-full items-center justify-center rounded-full bg-clay-400 px-7 py-3 font-sans text-base font-medium tracking-wide text-ink-950 sm:w-auto sm:self-start"
+                className="inline-flex min-h-[50px] w-full items-center justify-center rounded-full bg-accent px-7 py-3 font-sans text-base font-medium tracking-wide text-ink-950 sm:w-auto sm:self-start"
               >
                 Book a Consultation
               </a>
-              <p className="font-display text-sm italic text-cream-100/40">{footerLine}</p>
+              <p className="font-display text-sm italic text-background/40">{footerLine}</p>
             </motion.div>
           </motion.div>
         )}

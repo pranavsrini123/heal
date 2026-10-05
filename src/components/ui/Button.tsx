@@ -31,15 +31,15 @@ interface ButtonProps extends NativeAnchorProps {
  */
 const variants: Record<string, string> = {
   primary:
-    "bg-wine-600 text-cream-50 hover:bg-wine-700 shadow-soft hover:shadow-glow border border-transparent",
+    "bg-accent text-ink-950 hover:bg-accent-light shadow-soft hover:shadow-glow border border-transparent",
   secondary:
-    "bg-transparent text-ink-800 border border-ink-800/30 hover:border-ink-800 hover:bg-ink-800/5",
+    "bg-transparent text-heading border border-primary/60 hover:border-primary hover:bg-primary/10",
   ghost:
-    "bg-transparent text-cream-100 border border-cream-100/40 hover:border-saffron-300 hover:text-saffron-300",
+    "bg-transparent text-background border border-background/40 hover:border-light hover:text-light",
   inverse:
-    "bg-cream-100 text-ink-900 hover:bg-cream-50 shadow-soft border border-transparent",
+    "bg-background text-ink-900 hover:bg-light shadow-soft border border-transparent",
   accent:
-    "bg-clay-400 text-ink-950 hover:bg-clay-300 shadow-soft hover:shadow-glow border border-transparent",
+    "bg-accent text-ink-950 hover:bg-accent-light shadow-soft hover:shadow-glow border border-transparent",
 };
 
 /**

@@ -14,7 +14,7 @@ export function Therapies() {
   const [selected, setSelected] = useState<Therapy | null>(null);
 
   return (
-    <section id="therapies" className="relative bg-cream-100 pb-10 pt-16 sm:pb-16 sm:pt-28" aria-label="Our therapies">
+    <section id="therapies" className="relative bg-background pb-10 pt-16 sm:pb-16 sm:pt-28" aria-label="Our therapies">
       <div data-thread-content className="relative z-[2] mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading eyebrow="Our Therapies" title="Explore Our Therapies" />
 
@@ -30,8 +30,8 @@ export function Therapies() {
                         category === "mental"
                           ? // Phones: always one line — the size eases down with the
                             // screen just enough to sit beside the Swipe hint.
-                            "whitespace-nowrap font-display text-[length:min(1.5rem,calc((100vw-80px)/12.2))] font-semibold text-wine-800 min-[360px]:text-[length:min(1.5rem,calc((100vw-124px)/12.2))] sm:whitespace-normal sm:text-balance sm:text-3xl"
-                          : "text-balance font-display text-2xl font-semibold text-wine-800 sm:text-3xl"
+                            "whitespace-nowrap font-display text-[length:min(1.5rem,calc((100vw-80px)/12.2))] font-semibold text-heading min-[360px]:text-[length:min(1.5rem,calc((100vw-124px)/12.2))] sm:whitespace-normal sm:text-balance sm:text-3xl"
+                          : "text-balance font-display text-2xl font-semibold text-heading sm:text-3xl"
                       }
                     >
                       {therapyCategories[category].title}
@@ -39,7 +39,7 @@ export function Therapies() {
                     <p className="font-sans text-sm text-ink-700/70">{therapyCategories[category].description}</p>
                   </div>
                   {/* Swipe hint — only where the row scrolls. */}
-                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[9px] uppercase tracking-widest2 text-clay-600/80 min-[360px]:flex md:text-[11px] xl:hidden" aria-hidden="true">
+                  <span className="mb-0.5 hidden shrink-0 items-center gap-1.5 font-sans text-[9px] uppercase tracking-widest2 text-secondary-deep/80 min-[360px]:flex md:text-[11px] xl:hidden" aria-hidden="true">
                     Swipe
                     <svg width="18" height="8" viewBox="0 0 18 8" fill="none">
                       <path d="M0 4h16m0 0L13 1m3 3-3 3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />

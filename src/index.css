@@ -30,8 +30,8 @@ body {
 }
 
 ::selection {
-  background-color: #e3a174;
-  color: #1b1012;
+  background-color: var(--color-light);
+  color: var(--color-heading);
 }
 
 /* Subtle grain texture, used as a fixed overlay */
@@ -63,9 +63,9 @@ body {
   font-feature-settings: "liga" 1, "kern" 1;
 }
 
-/* Warm terracotta → saffron text used for the hero highlight */
+/* Soft terracotta → beige text used for the hero highlight */
 .warm-text {
-  background: linear-gradient(120deg, #c96a3a 0%, #e2bc68 55%, #c96a3a 100%);
+  background: linear-gradient(120deg, var(--color-accent-soft) 0%, var(--color-light) 55%, var(--color-accent-soft) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -81,12 +81,12 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #faf5ec;
+  background: var(--color-background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #dcc6a2;
+  background: var(--color-neutral);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c9ab84;
+  background: var(--color-neutral-deep);
 }

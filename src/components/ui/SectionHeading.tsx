@@ -24,7 +24,7 @@ export function SectionHeading({
         <RevealOnScroll>
           <span
             className={`text-xs sm:text-sm tracking-widest2 uppercase font-sans font-medium ${
-              light ? "text-saffron-300" : "text-saffron-600"
+              light ? "text-light" : "text-secondary-deep"
             }`}
           >
             {eyebrow}
@@ -34,7 +34,7 @@ export function SectionHeading({
       <RevealOnScroll delay={0.08}>
         <h2
           className={`font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.15] text-balance ${
-            light ? "text-cream-100" : "text-wine-800"
+            light ? "text-background" : "text-heading"
           }`}
         >
           {title}
@@ -42,7 +42,7 @@ export function SectionHeading({
       </RevealOnScroll>
       {subtitle && (
         <RevealOnScroll delay={0.16}>
-          <p className={`font-sans text-base sm:text-lg leading-relaxed ${light ? "text-cream-200/80" : "text-ink-700/80"}`}>
+          <p className={`font-sans text-base sm:text-lg leading-relaxed ${light ? "text-light/80" : "text-ink-700/80"}`}>
             {subtitle}
           </p>
         </RevealOnScroll>

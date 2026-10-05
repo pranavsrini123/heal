@@ -17,20 +17,20 @@ export type CardTone = "ivory" | "deep";
 // ivory type with muted-gold details.
 const TONE: Record<CardTone, { card: string; title: string; body: string; num: string; rule: string; cta: string }> = {
   ivory: {
-    card: "border-ink-900/10 bg-cream-50 hover:border-clay-400/50",
-    title: "text-wine-800",
+    card: "border-ink-900/10 bg-light hover:border-accent/50",
+    title: "text-heading",
     body: "text-ink-700/80",
-    num: "text-clay-500",
-    rule: "bg-saffron-400/70",
-    cta: "text-wine-600 group-hover:text-clay-600",
+    num: "text-primary",
+    rule: "bg-secondary/70",
+    cta: "text-accent-deep group-hover:text-accent",
   },
   deep: {
-    card: "border-wine-800/70 bg-wine-700 hover:border-saffron-300/60",
-    title: "text-cream-50",
-    body: "text-cream-100/80",
-    num: "text-saffron-300",
-    rule: "bg-saffron-300/60",
-    cta: "text-saffron-300 group-hover:text-saffron-200",
+    card: "border-forest-950/70 bg-forest-900 hover:border-light/60",
+    title: "text-light",
+    body: "text-background/80",
+    num: "text-light",
+    rule: "bg-light/60",
+    cta: "text-light group-hover:text-background",
   },
 };
 
@@ -55,7 +55,7 @@ export function TherapyCard({ therapy, index, onSelect, tone = "ivory" }: Therap
       // revealed too (it is only partly on screen).
       viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className={`group flex h-full w-full flex-col items-start rounded-xl border p-5 ${t.card} text-left transition-[border-color,transform,box-shadow] duration-500 min-[375px]:p-6 [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-400`}
+      className={`group flex h-full w-full flex-col items-start rounded-xl border p-5 ${t.card} text-left transition-[border-color,transform,box-shadow] duration-500 min-[375px]:p-6 [@media(hover:hover)]:hover:-translate-y-1 hover:shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`}
     >
       <span className={`flex items-center gap-2.5 font-sans text-[11px] tracking-widest2 ${t.num}`}>
         {String(index + 1).padStart(2, "0")}

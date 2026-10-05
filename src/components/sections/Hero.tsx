@@ -16,15 +16,15 @@ export function Hero() {
   });
 
   return (
-    <section id="home" className="relative overflow-hidden bg-ink-900" aria-label="Introduction">
-      <div className="absolute inset-0 bg-ink-radial" aria-hidden="true" />
+    <section id="home" className="relative overflow-hidden bg-forest-900" aria-label="Introduction">
+      <div className="absolute inset-0 bg-forest-radial" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto grid min-h-viewport max-w-7xl items-center gap-10 px-5 pb-14 pt-24 sm:gap-14 sm:px-8 sm:pb-20 sm:pt-28 lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-32">
         {/* Text */}
         <div data-thread-content className="lg:col-span-7">
           <motion.span
             {...rise(0.2)}
-            className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-saffron-300 min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm"
+            className="inline-block font-sans text-[11px] uppercase tracking-[0.2em] text-light min-[375px]:text-xs min-[375px]:tracking-widest2 sm:text-sm"
           >
             Holistic Healing &amp; Wellness
           </motion.span>
@@ -36,7 +36,7 @@ export function Hero() {
           <motion.h1
             {...rise(0.35)}
             data-thread="start-compact"
-            className="mt-5 font-display text-[2.1rem] font-medium leading-[1.08] text-cream-100 min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:mt-6 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+            className="mt-5 font-display text-[2.1rem] font-medium leading-[1.08] text-background min-[360px]:text-[2.3rem] min-[390px]:text-[2.5rem] sm:mt-6 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
           >
             <span className="block">Healing Mind.</span>
             <span className="block">
@@ -46,7 +46,7 @@ export function Hero() {
 
           <motion.p
             {...rise(0.8)}
-            className="mt-20 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-24 lg:mt-8 text-cream-100/75 sm:text-lg"
+            className="mt-20 max-w-lg font-sans text-[0.95rem] leading-relaxed min-[375px]:text-base sm:mt-24 lg:mt-8 text-background/75 sm:text-lg"
           >
             Discover a natural approach to wellbeing through personalized holistic therapies designed to restore
             balance, calm and vitality.
@@ -61,7 +61,7 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          <motion.p {...rise(1.2)} className="mt-5 font-sans text-xs tracking-wide text-cream-100/55 sm:mt-6 sm:text-sm">
+          <motion.p {...rise(1.2)} className="mt-5 font-sans text-xs tracking-wide text-background/55 sm:mt-6 sm:text-sm">
             Online consultations available
           </motion.p>
         </div>
@@ -83,7 +83,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.8 }}
-        className="absolute bottom-7 left-8 z-10 hidden items-center gap-3 text-cream-100/60 transition-colors hover:text-cream-100 lg:flex lg:left-[max(2rem,calc((100%_-_80rem)/2_+_2rem))]"
+        className="absolute bottom-7 left-8 z-10 hidden items-center gap-3 text-background/60 transition-colors hover:text-background lg:flex lg:left-[max(2rem,calc((100%_-_80rem)/2_+_2rem))]"
         aria-label="Scroll to explore"
         data-thread-avoid
       >
