@@ -63,7 +63,7 @@ body {
   font-feature-settings: "liga" 1, "kern" 1;
 }
 
-/* Soft terracotta → beige text used for the hero highlight */
+/* Soft honey → porcelain text used for the hero highlight */
 .warm-text {
   background: linear-gradient(120deg, var(--color-accent-soft) 0%, var(--color-light) 55%, var(--color-accent-soft) 100%);
   background-size: 200% auto;
