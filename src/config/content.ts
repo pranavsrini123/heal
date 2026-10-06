@@ -256,4 +256,16 @@ export const contact = {
   address: "PLACEHOLDER — add location / address",
 };
 
+/**
+ * Google reviews — the rating shown on the site and the link that opens
+ * Google's "write a review" panel for the practice's listing.
+ * Update `rating` and `count` here when the Google listing changes.
+ */
+export const googleReviews = {
+  rating: "4.9",
+  count: 14,
+  reviewUrl:
+    "https://www.google.com/search?q=sanjivani+healing+hub&rlz=1C1UEAD_enIN1095IN1095&oq=sanji&gs_lcrp=EgZjaHJvbWUqCAgCEEUYJxg7MgYIABBFGDsyCggBEC4YsQMYgAQyCAgCEEUYJxg7MgoIAxAuGLEDGIAEMgcIBBAAGIAEMgoIBRAAGLEDGIAEMgYIBhBFGDwyBggHEEUYPdIBCDY2MzhqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8#lrd=0x3bbf65005d0c4457:0x8f9d2f1d1819165e,3,,,,",
+};
+
 export const footerLine = "Heal Naturally • Live Happily";

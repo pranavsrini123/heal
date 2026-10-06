@@ -8,12 +8,14 @@ import { Hero } from "@/components/sections/Hero";
 import { Therapies } from "@/components/sections/Therapies";
 import { WhyChoose } from "@/components/sections/WhyChoose";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { GoogleReviews } from "@/components/sections/GoogleReviews";
 import { About } from "@/components/sections/About";
 import { CtaSection } from "@/components/sections/CtaSection";
 
 /**
  * The page reads as one journey:
  *   tangled mind (Hero) → therapies → why Sanjivini → client voices →
+ *   an invitation to review on Google →
  *   the therapist (About) → an invitation to begin (CTA).
  * A single thread (StoryThread) runs from the opening image to the
  * therapist's portrait.
@@ -31,6 +33,7 @@ function App() {
         <Therapies />
         <WhyChoose />
         <Testimonials />
+        <GoogleReviews />
         <About />
         <CtaSection />
       </main>
