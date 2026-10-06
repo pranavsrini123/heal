@@ -9,7 +9,7 @@ import { thread } from "@/config/palette";
  * THE JOURNEY — confusion → healing → integration → clarity → balance.
  *
  * A figure sits in the hero: a head that is a ball of looping lines in
- * three colours (honeycomb, moss, honey), with a neck and
+ * three muted colours (terracotta, sage, olive), with a neck and
  * shoulders drawn as single fine lines. Its lines leave over the right
  * shoulder and flow down the page as separate, countable strands that
  * weave across one another, then converge and merge one by one:
